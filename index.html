@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>carmenpetraru-art | Carmen Petraru Fine Art &amp; Private Curations</title>
+
+  <!-- Google Fonts: Cormorant Garamond, Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#090A0D',
+            surface: '#12141A',
+            surfaceElevated: '#181B23',
+            alabaster: '#F4EFE6',
+            mutedSlate: '#8E929F',
+            gold: {
+              DEFAULT: '#C8A96E',
+              light: '#E2C891',
+              dark: '#9B7E46',
+              muted: 'rgba(200, 169, 110, 0.2)'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          boxShadow: {
+            'museum': '0 25px 60px -15px rgba(0, 0, 0, 0.88), 0 0 1px 1px rgba(200, 169, 110, 0.24)',
+            'gold-glow': '0 0 40px -10px rgba(200, 169, 110, 0.28)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Base Museum Obsidian Theme & Custom Scrollbar */
+    :root {
+      --bg-obsidian: #090A0D;
+      --bg-surface: #12141A;
+      --text-alabaster: #F4EFE6;
+      --accent-gold: #C8A96E;
+      --border-gold: rgba(200, 169, 110, 0.22);
+    }
+
+    body {
+      background-color: var(--bg-obsidian);
+      color: var(--text-alabaster);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: rgba(200, 169, 110, 0.32);
+      color: #F4EFE6;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090A0D;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(200, 169, 110, 0.32);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(200, 169, 110, 0.65);
+    }
+
+    /* Ambient Cursor Halo */
+    #cursor-halo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200, 169, 110, 0.07) 0%, rgba(200, 169, 110, 0) 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Staggered Hero Reveal Animations */
+    @keyframes fadeUpLuxury {
+      0% {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-hero-1 { animation: fadeUpLuxury 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
+    .animate-hero-2 { animation: fadeUpLuxury 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards; opacity: 0; }
+    .animate-hero-3 { animation: fadeUpLuxury 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; }
+    .animate-hero-4 { animation: fadeUpLuxury 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards; opacity: 0; }
+    .animate-hero-art { animation: fadeUpLuxury 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards; opacity: 0; }
+
+    /* IntersectionObserver Scroll Reveal */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Museum Gallery Frame Styling */
+    .gallery-frame {
+      padding: 12px;
+      background: linear-gradient(145deg, #1b1a17 0%, #0d0d0f 100%);
+      border: 1px solid rgba(198, 163, 85, 0.35);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+        inset 0 2px 12px rgba(0, 0, 0, 0.9),
+        0 20px 45px -12px rgba(0, 0, 0, 0.9);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.5s ease;
+    }
+
+    .artwork-card:hover .gallery-frame {
+      border-color: rgba(198, 163, 85, 0.7);
+      box-shadow:
+        inset 0 0 0 1px rgba(198, 163, 85, 0.15),
+        inset 0 2px 12px rgba(0, 0, 0, 0.9),
+        0 28px 60px -10px rgba(0, 0, 0, 0.95),
+        0 0 30px -8px rgba(198, 163, 85, 0.22);
+    }
+
+    /* Card Spotlight Effect */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(198, 163, 85, 0.09),
+        transparent 45%
+      );
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+
+    /* 3D Hero Tilt Perspective */
+    .perspective-stage {
+      perspective: 1400px;
+    }
+    #hero-tilt-wrapper {
+      transform-style: preserve-3d;
+      transition: transform 0.25s ease-out;
+    }
+
+    /* =====================================================================
+       VIEWING ROOM: INTERACTIVE LAMP & DAY / NIGHT LIGHTING ENGINE
+    ===================================================================== */
+    .lighting-transition {
+      transition:
+        background-color 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        color 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Spring Physics Pull-Cord Tug Animation */
+    @keyframes lampCordTug {
+      0%   { transform: translateY(0) scaleY(1); }
+      28%  { transform: translateY(18px) scaleY(1.06); }
+      58%  { transform: translateY(-5px) scaleY(0.98); }
+      80%  { transform: translateY(3px) scaleY(1.01); }
+      100% { transform: translateY(0) scaleY(1); }
+    }
+    .animate-cord-tug {
+      animation: lampCordTug 0.58s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Gentle Ambient Sway on Hanging Pendant Lamp */
+    @keyframes lampGentleSway {
+      0%, 100% { transform: rotate(-0.7deg); }
+      50%      { transform: rotate(0.7deg); }
+    }
+    .lamp-sway-anchor {
+      transform-origin: top center;
+      animation: lampGentleSway 7s ease-in-out infinite;
+    }
+
+    /* Diagonal Architectural Daylight Window Louver Shadows */
+    .daylight-window-rays {
+      background: repeating-linear-gradient(
+        -28deg,
+        rgba(255, 250, 238, 0.24) 0px,
+        rgba(255, 250, 238, 0.24) 48px,
+        rgba(140, 128, 108, 0.08) 48px,
+        rgba(140, 128, 108, 0.08) 76px
+      );
+      mask-image: radial-gradient(ellipse 85% 80% at 35% 25%, black 25%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 80% at 35% 25%, black 25%, transparent 80%);
+    }
+
+    /* Volumetric Warm Lamp Cone */
+    .lamp-volumetric-cone {
+      clip-path: polygon(44% 0%, 56% 0%, 94% 100%, 6% 100%);
+      background: radial-gradient(
+        ellipse 65% 85% at 50% 0%,
+        rgba(255, 238, 196, 0.44) 0%,
+        rgba(255, 224, 158, 0.16) 52%,
+        rgba(255, 224, 158, 0) 100%
+      );
+    }
+
+    /* Modal Backdrop Transition */
+    .modal-backdrop {
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    .modal-panel {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    }
+
+    /* Custom Select Styling */
+    select.luxury-select {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23C6A355' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.65rem center;
+      background-repeat: no-repeat;
+      background-size: 1.1em 1.1em;
+      padding-right: 2.2rem;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+  </style>
+</head>
+<body class="bg-obsidian text-alabaster antialiased selection:bg-gold/30">
+
+  <!-- Subtle Cursor Ambient Glow -->
+  <div id="cursor-halo" class="hidden md:block"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+
+  <!-- ===================================================================== -->
+  <!-- FLOATING GLASS HEADER                                                 -->
+  <!-- ===================================================================== -->
+  <header class="fixed top-0 inset-x-0 z-40 transition-all duration-300 bg-obsidian/85 backdrop-blur-xl border-b border-gold/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between gap-3">
+      <!-- Brand Mark: CARMEN PETRARU / carmenpetraru-art -->
+      <a href="#" onclick="switchView('exhibition'); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="flex items-center gap-3.5 group shrink-0">
+        <div class="w-10 h-10 rounded-lg border border-gold/45 bg-surface flex items-center justify-center relative overflow-hidden group-hover:border-gold transition-colors">
+          <div class="absolute inset-0 bg-gradient-to-tr from-gold/15 to-transparent"></div>
+          <span class="font-serif text-xl tracking-widest text-gold font-semibold">CP</span>
+        </div>
+        <div>
+          <div class="font-serif text-lg sm:text-2xl tracking-[0.2em] text-alabaster font-normal leading-none">
+            CARMEN PETRARU
+          </div>
+          <div class="font-mono text-[10px] tracking-[0.22em] lowercase text-gold/85 mt-1">
+            carmenpetraru-art
+          </div>
+        </div>
+      </a>
+
+      <!-- Center Navigation (Visible on Exhibition View) -->
+      <nav id="exhibition-nav" class="hidden lg:flex items-center gap-7 text-xs tracking-[0.18em] uppercase text-alabaster/75">
+        <button onclick="navigateSection('collection-section')" class="hover:text-gold transition-colors py-2">Collection</button>
+        <button onclick="navigateSection('exhibitions-section')" class="hover:text-gold transition-colors py-2">Exhibitions</button>
+        <button onclick="navigateSection('provenance-section')" class="hover:text-gold transition-colors py-2">Provenance</button>
+        <button onclick="navigateSection('advisory-section')" class="hover:text-gold transition-colors py-2">Private Advisory</button>
+      </nav>
+
+      <!-- Dashboard Mode Indicator (Visible on Dashboard View) -->
+      <div id="dashboard-nav-label" class="hidden lg:flex items-center gap-2.5 text-xs tracking-[0.2em] uppercase text-gold">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Studio Admin &bull; carmenpetraru-art</span>
+      </div>
+
+      <!-- Right Actions: International Currency Switcher + View Toggle -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <!-- International Currency Selector -->
+        <div class="relative">
+          <select
+            id="currency-selector"
+            onchange="setCurrency(this.value)"
+            aria-label="Select Currency"
+            class="luxury-select font-mono text-[11px] tracking-wider uppercase px-3 py-2.5 rounded-lg bg-surface border border-gold/30 hover:border-gold text-gold focus:outline-none cursor-pointer"
+          >
+            <option value="USD">USD $</option>
+            <option value="EUR">EUR &euro;</option>
+            <option value="GBP">GBP &pound;</option>
+            <option value="CHF">CHF</option>
+          </select>
+        </div>
+
+        <!-- Seamless Public Exhibition / Curator Dashboard Toggle -->
+        <button
+          id="view-toggle-btn"
+          onclick="toggleMainView()"
+          class="relative inline-flex items-center gap-2 px-3.5 sm:px-5 py-2.5 rounded-lg border border-gold/50 bg-surface/90 hover:bg-gold hover:text-obsidian text-alabaster text-xs tracking-[0.14em] uppercase font-medium transition-all duration-300 shadow-gold-glow"
+        >
+          <svg id="toggle-icon-dash" class="w-4 h-4 text-gold" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+          </svg>
+          <span id="view-toggle-text" class="hidden sm:inline">Curator Dashboard</span>
+          <span id="view-toggle-text-mobile" class="sm:hidden">Studio</span>
+          <span id="nav-inquiry-badge" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-gold text-obsidian font-mono text-[11px] font-semibold">
+            3
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 1: PUBLIC COLLECTOR EXHIBITION VIEW (DEFAULT)                    -->
+  <!-- ===================================================================== -->
+  <main id="exhibition-view" class="relative z-10 pt-20">
+
+    <!-- CINEMATIC HERO SECTION WITH AMBIENT GOLD-DUST PARTICLES -->
+    <section class="relative min-h-[calc(100vh-5rem)] flex items-center py-16 sm:py-24 overflow-hidden border-b border-gold/15">
+      <!-- Ambient Gold-Dust Particles Canvas -->
+      <canvas id="hero-particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+      <!-- Ambient Radial Glows -->
+      <div class="absolute -top-24 left-1/4 w-[620px] h-[620px] bg-gold/[0.06] rounded-full blur-[130px] pointer-events-none"></div>
+      <div class="absolute bottom-0 right-10 w-[450px] h-[450px] bg-amber-900/[0.08] rounded-full blur-[120px] pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        <!-- Left Editorial Copy -->
+        <div class="lg:col-span-7 space-y-7">
+          <div class="animate-hero-1 inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-gold/30 bg-surface/80 backdrop-blur-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+            <span class="font-mono text-[11px] tracking-[0.2em] text-gold font-medium">
+              carmenpetraru-art &bull; ZURICH &bull; LONDON &bull; PARIS
+            </span>
+          </div>
+
+          <h1 class="animate-hero-2 font-serif text-4xl sm:text-6xl xl:text-[68px] font-light leading-[1.08] tracking-tight text-alabaster">
+            Luminous Contemporary Works by <span class="italic text-gold font-normal">Carmen Petraru</span>
+          </h1>
+
+          <p class="animate-hero-3 text-base sm:text-lg text-alabaster/70 font-light leading-relaxed max-w-2xl">
+            Museum-caliber original paintings uniting sculptural palette-knife impasto, 24-karat gold leaf gilding, and atmospheric color fields. Acquired privately by international foundations, family offices, and discerning collectors worldwide.
+          </p>
+
+          <div class="animate-hero-4 flex flex-wrap items-center gap-4 pt-2">
+            <button
+              onclick="navigateSection('collection-section')"
+              class="px-7 py-3.5 rounded-lg bg-gold hover:bg-gold-light text-obsidian text-xs tracking-[0.2em] uppercase font-semibold transition-all duration-300 shadow-lg shadow-gold/15"
+            >
+              Explore Current Collection
+            </button>
+            <button
+              onclick="openViewingRoom('art-1')"
+              class="px-7 py-3.5 rounded-lg border border-gold/35 hover:border-gold bg-surface/60 hover:bg-surface text-alabaster text-xs tracking-[0.2em] uppercase font-medium transition-all duration-300"
+            >
+              Enter Private Viewing Room
+            </button>
+          </div>
+
+          <!-- Collector Trust Strip -->
+          <div class="animate-hero-4 pt-6 border-t border-gold/15 grid grid-cols-3 gap-6 max-w-xl">
+            <div>
+              <div class="font-serif text-2xl sm:text-3xl text-gold">1 / 1</div>
+              <div class="text-[11px] uppercase tracking-[0.16em] text-mutedSlate mt-0.5">Signed Originals</div>
+            </div>
+            <div>
+              <div class="font-serif text-2xl sm:text-3xl text-alabaster">22+</div>
+              <div class="text-[11px] uppercase tracking-[0.16em] text-mutedSlate mt-0.5">Countries Collected</div>
+            </div>
+            <div>
+              <div class="font-serif text-2xl sm:text-3xl text-alabaster">Day &amp; Night</div>
+              <div class="text-[11px] uppercase tracking-[0.16em] text-mutedSlate mt-0.5">Lighting Simulation</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Featured Masterpiece Showcase with 3D Hover Tilt -->
+        <div class="lg:col-span-5 animate-hero-art perspective-stage flex flex-col items-center">
+          <div id="hero-tilt-wrapper" class="w-full max-w-[430px] cursor-pointer group" onclick="openViewingRoom('art-1')">
+            <div class="gallery-frame rounded-xl p-4 sm:p-5 relative">
+              <!-- Subtle Museum Spot Reflection -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-gold/[0.08] pointer-events-none rounded-xl"></div>
+              <div class="relative aspect-[4/5] w-full overflow-hidden rounded-md bg-obsidian">
+                <canvas id="hero-featured-canvas" class="w-full h-full block"></canvas>
+              </div>
+            </div>
+
+            <!-- Museum Brass Plaque -->
+            <div class="mt-5 px-5 py-3.5 rounded-xl bg-surface/90 border border-gold/25 backdrop-blur-md flex items-center justify-between gap-4 group-hover:border-gold/60 transition-colors">
+              <div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">Featured Work &bull; CP-2026-01</div>
+                <div class="font-serif text-xl text-alabaster mt-0.5">Sovereign Nocturne VII</div>
+                <div class="text-xs text-mutedSlate">Oil &amp; 24k Gold Leaf on Belgian Linen &bull; 160 &times; 130 cm</div>
+              </div>
+              <div class="w-9 h-9 rounded-full border border-gold/40 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-obsidian transition-all shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- FILTERABLE GALLERY GRID SECTION                                     -->
+    <!-- =================================================================== -->
+    <section id="collection-section" class="py-20 sm:py-28 max-w-7xl mx-auto px-4 sm:px-8">
+      <!-- Section Heading & Category Filter Tabs -->
+      <div class="reveal-on-scroll flex flex-col md:flex-row md:items-end justify-between gap-8 mb-14">
+        <div>
+          <div class="font-mono text-xs tracking-[0.22em] uppercase text-gold mb-2">carmenpetraru-art &bull; Catalogue 2026</div>
+          <h2 class="font-serif text-3xl sm:text-5xl font-light text-alabaster">
+            Selected Works &amp; Private Acquisitions
+          </h2>
+        </div>
+
+        <!-- Category Tabs -->
+        <div id="category-tabs" class="flex flex-wrap items-center gap-2 p-1.5 rounded-xl bg-surface border border-gold/20">
+          <button data-category="all" onclick="filterGallery('all')" class="filter-tab active px-4 py-2 rounded-lg text-xs tracking-[0.14em] uppercase transition-all bg-gold text-obsidian font-semibold">
+            All Works
+          </button>
+          <button data-category="Oil & Gold Leaf" onclick="filterGallery('Oil & Gold Leaf')" class="filter-tab px-4 py-2 rounded-lg text-xs tracking-[0.14em] uppercase transition-all text-alabaster/70 hover:text-alabaster">
+            Oil &amp; Gold Leaf
+          </button>
+          <button data-category="Abstract & Texture" onclick="filterGallery('Abstract & Texture')" class="filter-tab px-4 py-2 rounded-lg text-xs tracking-[0.14em] uppercase transition-all text-alabaster/70 hover:text-alabaster">
+            Abstract &amp; Texture
+          </button>
+          <button data-category="Monumental Scale" onclick="filterGallery('Monumental Scale')" class="filter-tab px-4 py-2 rounded-lg text-xs tracking-[0.14em] uppercase transition-all text-alabaster/70 hover:text-alabaster">
+            Monumental Scale
+          </button>
+        </div>
+      </div>
+
+      <!-- Dynamic Artworks Grid -->
+      <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- CURATED EXHIBITIONS & WORLDWIDE SHOWCASES                           -->
+    <!-- =================================================================== -->
+    <section id="exhibitions-section" class="py-20 border-t border-gold/15 bg-surface/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8">
+        <div class="reveal-on-scroll max-w-2xl mb-14">
+          <div class="text-xs tracking-[0.25em] uppercase text-gold mb-2">International Salon Calendar</div>
+          <h2 class="font-serif text-3xl sm:text-5xl font-light text-alabaster">
+            Solo Exhibitions &amp; Private Showcases
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="reveal-on-scroll spotlight-card p-7 rounded-xl bg-surface border border-gold/20 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs tracking-[0.2em] uppercase text-gold mb-4">
+                <span>Zurich &bull; Bahnhofstrasse</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-gold/15 text-gold text-[10px]">Current</span>
+              </div>
+              <h3 class="font-serif text-2xl text-alabaster mb-2">Alchemy of Light &amp; Gold</h3>
+              <p class="text-sm text-alabaster/65 font-light leading-relaxed">
+                A private collector presentation by Carmen Petraru exploring how 24-karat gold leaf transforms between daylight and nocturnal illumination.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-gold/15 flex items-center justify-between text-xs text-mutedSlate">
+              <span class="font-mono">Nov 2026 &ndash; Jan 2027</span>
+              <button onclick="openViewingRoom('art-1')" class="text-gold hover:underline">Enter Viewing Room &rarr;</button>
+            </div>
+          </div>
+
+          <div class="reveal-on-scroll spotlight-card p-7 rounded-xl bg-surface border border-gold/20 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs tracking-[0.2em] uppercase text-gold mb-4">
+                <span>London &bull; Mayfair</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-alabaster/10 text-alabaster/80 text-[10px]">Upcoming</span>
+              </div>
+              <h3 class="font-serif text-2xl text-alabaster mb-2">Matter &amp; Luminescence</h3>
+              <p class="text-sm text-alabaster/65 font-light leading-relaxed">
+                Curated dialogue between heavy architectural impasto relief and luminous mineral color-field canvases on Mount Street, Mayfair.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-gold/15 flex items-center justify-between text-xs text-mutedSlate">
+              <span class="font-mono">Feb 14 &ndash; Mar 28, 2027</span>
+              <button onclick="openViewingRoom('art-3')" class="text-gold hover:underline">Preview Works &rarr;</button>
+            </div>
+          </div>
+
+          <div class="reveal-on-scroll spotlight-card p-7 rounded-xl bg-surface border border-gold/20 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs tracking-[0.2em] uppercase text-gold mb-4">
+                <span>Paris &bull; Place Vend&ocirc;me</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-alabaster/10 text-alabaster/80 text-[10px]">Spring Salon</span>
+              </div>
+              <h3 class="font-serif text-2xl text-alabaster mb-2">Nocturnes in Gold</h3>
+              <p class="text-sm text-alabaster/65 font-light leading-relaxed">
+                Monumental vertical canvases tailored for historic Haussmannian residences and private European art foundations.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-gold/15 flex items-center justify-between text-xs text-mutedSlate">
+              <span class="font-mono">Apr 10 &ndash; May 22, 2027</span>
+              <button onclick="openViewingRoom('art-2')" class="text-gold hover:underline">Preview Works &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- PROVENANCE & WHITE-GLOVE COLLECTOR ADVISORY                         -->
+    <!-- =================================================================== -->
+    <section id="provenance-section" class="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-8">
+      <div id="advisory-section" class="reveal-on-scroll rounded-2xl bg-gradient-to-br from-surface via-surfaceElevated to-obsidian border border-gold/25 p-8 sm:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 space-y-5">
+          <div class="font-mono text-xs tracking-[0.22em] uppercase text-gold">carmenpetraru-art Verified Provenance</div>
+          <h2 class="font-serif text-3xl sm:text-5xl font-light text-alabaster leading-tight">
+            Museum-Grade Authentication &amp; Global White-Glove Delivery
+          </h2>
+          <p class="text-sm sm:text-base text-alabaster/70 font-light leading-relaxed">
+            Every original work acquired through <span class="text-gold font-mono text-xs">carmenpetraru-art</span> is accompanied by a hand-signed Archival Monograph Certificate by Carmen Petraru, UV-pigment conservation dossier, and an immutable provenance registry transferred directly to the collector.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center text-gold shrink-0 mt-0.5">&#10003;</div>
+              <div>
+                <div class="text-sm font-medium text-alabaster">Custom Museum Crating</div>
+                <div class="text-xs text-mutedSlate mt-0.5">Climate-buffered ISPM-15 crates insured door-to-wall via international fine art couriers.</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center text-gold shrink-0 mt-0.5">&#10003;</div>
+              <div>
+                <div class="text-sm font-medium text-alabaster">Bespoke Commissions</div>
+                <div class="text-xs text-mutedSlate mt-0.5">Site-specific monumental works tailored to architectural dimensions &amp; room lighting.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-obsidian/85 border border-gold/25 rounded-xl p-6 sm:p-8 space-y-5">
+          <div class="flex items-center justify-between">
+            <div class="font-serif text-2xl text-alabaster">Private Studio Advisory</div>
+            <span class="font-mono text-[10px] text-gold border border-gold/30 px-2 py-0.5 rounded">VIP DESK</span>
+          </div>
+          <p class="text-xs text-alabaster/65 leading-relaxed">
+            Connect directly with Carmen Petraru's studio curators for high-resolution macro inspection videos, private studio viewings, or architectural placement renderings.
+          </p>
+          <button
+            onclick="openViewingRoom('art-1')"
+            class="w-full py-3.5 rounded-lg bg-gold hover:bg-gold-light text-obsidian text-xs tracking-[0.2em] uppercase font-semibold transition-colors"
+          >
+            Enter Private Viewing Room
+          </button>
+          <div class="font-mono text-[10px] text-center text-mutedSlate tracking-wider uppercase">
+            carmenpetraru-art &bull; Strict Collector Confidentiality
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gold/15 py-12 bg-obsidian text-mutedSlate text-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <span class="font-serif text-lg tracking-[0.22em] text-alabaster">CARMEN PETRARU</span>
+          <span class="font-mono text-xs text-gold ml-3">carmenpetraru-art</span>
+        </div>
+        <div class="tracking-[0.15em] uppercase text-[11px]">
+          Zurich &bull; London &bull; Paris &bull; New York &mdash; &copy; 2026 carmenpetraru-art
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 2: CURATOR & ARTIST DASHBOARD VIEW ("STUDIO ADMIN")              -->
+  <!-- ===================================================================== -->
+  <section id="dashboard-view" class="hidden relative z-10 pt-28 pb-24 max-w-7xl mx-auto px-4 sm:px-8">
+
+    <!-- Dashboard Top Header Bar -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 pb-6 border-b border-gold/20">
+      <div>
+        <div class="font-mono text-xs tracking-[0.22em] uppercase text-gold mb-1.5">carmenpetraru-art &bull; Studio Admin</div>
+        <h1 class="font-serif text-3xl sm:text-5xl font-light text-alabaster">Curator &amp; Collector Suite</h1>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <button
+          onclick="openPublishModal()"
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-gold hover:bg-gold-light text-obsidian text-xs tracking-[0.16em] uppercase font-semibold transition-all shadow-lg shadow-gold/15"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          Publish New Artwork
+        </button>
+      </div>
+    </div>
+
+    <!-- EXECUTIVE KPI STRIP (4 Animated Metric Cards) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <!-- KPI 1: Total Portfolio Valuation -->
+      <div class="spotlight-card p-6 rounded-xl bg-surface border border-gold/25">
+        <div class="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-mutedSlate mb-3">
+          <span>Total Portfolio Valuation</span>
+          <span class="font-mono text-gold font-medium">LIVE</span>
+        </div>
+        <div id="kpi-valuation" class="font-serif text-3xl sm:text-4xl text-alabaster font-normal">$424,000</div>
+        <div class="text-xs text-emerald-400 mt-2 flex items-center gap-1.5">
+          <span>&#9650; +21.6%</span>
+          <span class="text-mutedSlate">vs. prior quarter</span>
+        </div>
+      </div>
+
+      <!-- KPI 2: Available Works -->
+      <div class="spotlight-card p-6 rounded-xl bg-surface border border-gold/25">
+        <div class="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-mutedSlate mb-3">
+          <span>Available Works</span>
+          <span class="font-mono text-gold/80">1/1</span>
+        </div>
+        <div id="kpi-available" class="font-serif text-3xl sm:text-4xl text-alabaster font-normal">4 Works</div>
+        <div class="text-xs text-mutedSlate mt-2">Ready for immediate acquisition</div>
+      </div>
+
+      <!-- KPI 3: Reserved / Sold Revenue -->
+      <div class="spotlight-card p-6 rounded-xl bg-surface border border-gold/25">
+        <div class="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-mutedSlate mb-3">
+          <span>Reserved / Sold Revenue</span>
+          <span class="font-mono text-emerald-400">2026</span>
+        </div>
+        <div id="kpi-revenue" class="font-serif text-3xl sm:text-4xl text-gold font-normal">$112,000</div>
+        <div class="text-xs text-emerald-400 mt-2 flex items-center gap-1.5">
+          <span>&#9650; Settled &amp; Escrow</span>
+        </div>
+      </div>
+
+      <!-- KPI 4: Active VIP Inquiries -->
+      <div class="spotlight-card p-6 rounded-xl bg-surface border border-gold/25">
+        <div class="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-mutedSlate mb-3">
+          <span>Active VIP Inquiries</span>
+          <span class="w-2 h-2 rounded-full bg-gold animate-ping"></span>
+        </div>
+        <div id="kpi-inquiries" class="font-serif text-3xl sm:text-4xl text-alabaster font-normal">3</div>
+        <div class="text-xs text-mutedSlate mt-2">High-intent international leads</div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS & GEOGRAPHY PANEL -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
+      <!-- Smooth Area Line Chart -->
+      <div class="lg:col-span-8 p-6 sm:p-8 rounded-xl bg-surface border border-gold/20">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+          <div>
+            <div class="text-xs uppercase tracking-[0.2em] text-gold">Collector Engagement &amp; Viewing Room Telemetry</div>
+            <h3 class="font-serif text-2xl text-alabaster mt-0.5">6-Month International Collector Trajectory</h3>
+          </div>
+          <div class="font-mono text-xs text-alabaster/70 bg-obsidian px-3 py-1.5 rounded-lg border border-gold/15">
+            Avg. Lamp Toggle Dwell: <span class="text-gold font-medium">5m 14s</span>
+          </div>
+        </div>
+        <div class="relative w-full h-64">
+          <canvas id="analytics-chart-canvas" class="w-full h-full block"></canvas>
+        </div>
+      </div>
+
+      <!-- Top Collector Regions Breakdown (Zurich, London, New York, Paris, Dubai) -->
+      <div class="lg:col-span-4 p-6 sm:p-8 rounded-xl bg-surface border border-gold/20 flex flex-col justify-between">
+        <div>
+          <div class="text-xs uppercase tracking-[0.2em] text-gold">Geographic Distribution</div>
+          <h3 class="font-serif text-2xl text-alabaster mt-0.5 mb-5">International Collector Traffic</h3>
+
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-alabaster font-medium">Zurich, Switzerland</span>
+                <span class="font-mono text-gold font-semibold">28%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-obsidian overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-gold-dark to-gold rounded-full" style="width: 28%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-alabaster font-medium">London, United Kingdom</span>
+                <span class="font-mono text-gold font-semibold">24%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-obsidian overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-gold-dark to-gold rounded-full" style="width: 24%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-alabaster font-medium">New York, United States</span>
+                <span class="font-mono text-gold font-semibold">20%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-obsidian overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-gold-dark to-gold rounded-full" style="width: 20%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-alabaster font-medium">Paris, France</span>
+                <span class="font-mono text-gold font-semibold">15%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-obsidian overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-gold-dark to-gold rounded-full" style="width: 15%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs mb-1">
+                <span class="text-alabaster font-medium">Dubai, United Arab Emirates</span>
+                <span class="font-mono text-gold font-semibold">13%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-obsidian overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-gold-dark to-gold rounded-full" style="width: 13%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4 border-t border-gold/15 text-xs text-mutedSlate">
+          82% of VIP inquiries interact with the Day/Night Viewing Room lamp before submitting acquisition requests.
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE ARTWORK INVENTORY MANAGER -->
+    <div class="rounded-xl bg-surface border border-gold/20 overflow-hidden mb-10">
+      <div class="p-6 sm:p-8 border-b border-gold/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="font-mono text-xs uppercase tracking-[0.2em] text-gold">carmenpetraru-art &bull; Catalogue Sync</div>
+          <h3 class="font-serif text-2xl sm:text-3xl text-alabaster mt-0.5">Live Inventory &amp; Exhibition Manager</h3>
+        </div>
+        <div class="text-xs text-mutedSlate">
+          Status updates reflect immediately in the Public Exhibition and Portfolio KPIs.
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-gold/15 text-[11px] uppercase tracking-[0.18em] text-mutedSlate bg-obsidian/50">
+              <th class="py-4 px-6">Artwork</th>
+              <th class="py-4 px-6">Category</th>
+              <th class="py-4 px-6">Dimensions</th>
+              <th class="py-4 px-6">Valuation</th>
+              <th class="py-4 px-6">Exhibition Status</th>
+            </tr>
+          </thead>
+          <tbody id="inventory-table-body" class="divide-y divide-gold/10 text-sm">
+            <!-- Populated dynamically via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VIP COLLECTOR INQUIRIES INBOX -->
+    <div class="rounded-xl bg-surface border border-gold/20 overflow-hidden">
+      <div class="p-6 sm:p-8 border-b border-gold/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="text-xs uppercase tracking-[0.2em] text-gold">Private Acquisition Desk</div>
+          <h3 class="font-serif text-2xl sm:text-3xl text-alabaster mt-0.5">VIP Collector Inquiries Feed</h3>
+        </div>
+        <span id="inbox-count-label" class="font-mono px-3.5 py-1.5 rounded-full bg-gold/15 border border-gold/30 text-gold text-xs font-medium">
+          3 Priority Leads
+        </span>
+      </div>
+
+      <div id="vip-inquiries-list" class="divide-y divide-gold/15">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 1: PRIVATE VIEWING ROOM WITH INTERACTIVE HANGING LAMP           -->
+  <!-- ===================================================================== -->
+  <div id="viewing-room-modal" class="modal-backdrop fixed inset-0 z-50 hidden opacity-0 items-center justify-center bg-obsidian/92 backdrop-blur-xl p-2 sm:p-5 overflow-y-auto">
+    <div class="modal-panel relative w-full max-w-6xl rounded-2xl bg-surface border border-gold/30 shadow-museum overflow-hidden my-auto transform scale-95">
+
+      <!-- Modal Top Control Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-7 py-3.5 bg-obsidian/95 border-b border-gold/20">
+        <div class="flex items-center gap-2.5">
+          <span class="text-[11px] uppercase tracking-[0.22em] text-gold font-medium">Private Viewing Room</span>
+          <span class="text-alabaster/30">&bull;</span>
+          <span id="modal-lot-code" class="font-mono text-xs text-mutedSlate">CP-2026-01</span>
+        </div>
+
+        <!-- Center Controls: View Mode + Interactive Lamp Day/Night Switch -->
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+          <!-- Mode Switcher: Room & Wall Scale (Default) vs Close-Up Detail -->
+          <div class="flex items-center gap-1 p-1 rounded-lg bg-surface border border-gold/25">
+            <button
+              id="btn-mode-wall"
+              onclick="setViewingMode('wall')"
+              class="px-3 py-1.5 rounded-md text-[11px] tracking-[0.12em] uppercase font-medium transition-all bg-gold text-obsidian"
+            >
+              Room &amp; Wall Scale
+            </button>
+            <button
+              id="btn-mode-inspect"
+              onclick="setViewingMode('inspect')"
+              class="px-3 py-1.5 rounded-md text-[11px] tracking-[0.12em] uppercase font-medium transition-all text-alabaster/75 hover:text-alabaster"
+            >
+              Close-Up Detail
+            </button>
+          </div>
+
+          <!-- Signature Interactive Lamp Switch Button (Daylight ON vs Night OFF) -->
+          <button
+            id="btn-lamp-toggle"
+            onclick="toggleViewingLamp()"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-gold/55 bg-gold/15 hover:bg-gold/25 text-alabaster text-[11px] tracking-[0.12em] uppercase font-medium transition-all shadow-gold-glow"
+            title="Click or pull the hanging brass lamp cord to toggle Day & Night lighting"
+          >
+            <!-- Sun Icon (Visible when Lamp ON / Daylight) -->
+            <svg id="lamp-icon-sun" class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+            </svg>
+            <!-- Moon Icon (Visible when Lamp OFF / Night Mode) -->
+            <svg id="lamp-icon-moon" class="hidden w-4 h-4 text-sky-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+            </svg>
+            <span id="lamp-btn-label">Gallery Lamp: ON (Day)</span>
+          </button>
+        </div>
+
+        <button
+          onclick="closeViewingRoom()"
+          class="w-9 h-9 rounded-lg border border-gold/25 hover:border-gold flex items-center justify-center text-alabaster/70 hover:text-gold transition-colors"
+          aria-label="Close Viewing Room"
+        >
+          &#10005;
+        </button>
+      </div>
+
+      <!-- Modal Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 max-h-[86vh] overflow-y-auto">
+
+        <!-- Left Artwork Display Stage with Interactive Hanging Brass Pendant Lamp (7 Cols) -->
+        <div
+          id="viewing-stage-container"
+          class="lighting-transition lg:col-span-7 relative flex flex-col items-center justify-between min-h-[480px] sm:min-h-[580px] border-b lg:border-b-0 lg:border-r border-gold/15 overflow-hidden select-none"
+          style="background: linear-gradient(180deg, #EAE3D5 0%, #D9CFC0 72%, #8F8577 72.3%, #5E564B 100%);"
+        >
+          <!-- Diagonal Sunlit Window Shadows (Visible in Daylight Mode, Fades out in Night Mode) -->
+          <div id="window-sunlight-overlay" class="lighting-transition daylight-window-rays absolute inset-0 pointer-events-none opacity-90"></div>
+
+          <!-- Nocturnal Moonlight Ambient Vignette (Fades in during Night Mode) -->
+          <div
+            id="night-moonlight-overlay"
+            class="lighting-transition absolute inset-0 pointer-events-none opacity-0"
+            style="background: radial-gradient(ellipse 75% 60% at 50% 35%, rgba(148, 178, 224, 0.12) 0%, rgba(7, 9, 14, 0.65) 68%, rgba(4, 5, 9, 0.95) 100%);"
+          ></div>
+
+          <!-- Volumetric Warm Light Cone from Lamp onto Artwork -->
+          <div
+            id="lamp-light-cone"
+            class="lighting-transition lamp-volumetric-cone absolute top-[96px] left-1/2 -translate-x-1/2 w-[440px] sm:w-[540px] h-[390px] pointer-events-none opacity-95 z-10"
+          ></div>
+
+          <!-- INTERACTIVE HANGING SCULPTURAL BRASS PENDANT LAMP & PULL-CORD -->
+          <div class="relative z-30 flex flex-col items-center">
+            <div
+              id="interactive-pendant-lamp"
+              onclick="toggleViewingLamp()"
+              class="lamp-sway-anchor cursor-pointer group flex flex-col items-center pt-0"
+              title="Click the lamp or tug the brass pull-cord to switch Day / Night lighting"
+            >
+              <!-- Ceiling Brass Canopy -->
+              <div class="w-12 h-2 rounded-b-md bg-gradient-to-r from-[#8E7037] via-[#DFC27D] to-[#8E7037] shadow-md"></div>
+              <!-- Suspension Rod -->
+              <div class="w-[2px] h-8 bg-gradient-to-b from-[#9B7E46] to-[#DFC27D]"></div>
+
+              <!-- Sculptural Brushed Brass Lamp Shade + Bulb + Pull-Cord -->
+              <div class="relative flex flex-col items-center">
+                <!-- Brass Shade SVG -->
+                <svg width="116" height="54" viewBox="0 0 116 54" class="drop-shadow-[0_10px_18px_rgba(0,0,0,0.45)]">
+                  <defs>
+                    <linearGradient id="brassShadeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#8A6D35" />
+                      <stop offset="35%" stop-color="#DFC27D" />
+                      <stop offset="65%" stop-color="#B89752" />
+                      <stop offset="100%" stop-color="#785E2B" />
+                    </linearGradient>
+                  </defs>
+                  <!-- Upper Neck Socket -->
+                  <rect x="49" y="0" width="18" height="11" rx="3" fill="url(#brassShadeGrad)" />
+                  <!-- Flared Architectural Dome Shade -->
+                  <path d="M47 10 C47 10, 14 26, 8 46 L108 46 C102 26, 69 10, 69 10 Z" fill="url(#brassShadeGrad)" />
+                  <!-- Inner Reflector Rim -->
+                  <ellipse cx="58" cy="46" rx="50" ry="5.5" fill="#2A2318" />
+                  <ellipse id="lamp-inner-reflector" cx="58" cy="46" rx="47" ry="4.5" fill="#FFF3D1" class="lighting-transition" />
+                </svg>
+
+                <!-- Glowing Edison / Gallery Bulb & Filament -->
+                <div
+                  id="lamp-bulb"
+                  class="lighting-transition -mt-2 w-6 h-6 rounded-full flex items-center justify-center"
+                  style="background: radial-gradient(circle, #FFFDF7 20%, #FDE08D 65%, #D4A13B 100%); box-shadow: 0 0 28px 10px rgba(255, 226, 148, 0.85);"
+                >
+                  <div id="lamp-filament" class="lighting-transition w-2.5 h-2.5 rounded-full bg-white opacity-95"></div>
+                </div>
+
+                <!-- Physical Hanging Brass Pull-Cord & Weighted Tassel Knob -->
+                <div
+                  id="lamp-pull-cord"
+                  class="absolute left-[84px] top-[42px] flex flex-col items-center origin-top group-hover:translate-y-1 transition-transform"
+                >
+                  <!-- Beaded Brass Chain -->
+                  <div class="w-[1.5px] h-11 bg-gradient-to-b from-[#DFC27D] via-[#9B7E46] to-[#DFC27D] shadow-sm"></div>
+                  <!-- Weighted Cylindrical Brass Pull Knob -->
+                  <div class="w-2.5 h-4 rounded-full bg-gradient-to-r from-[#8A6D35] via-[#F2D99B] to-[#8A6D35] border border-[#59441D] shadow-md flex items-center justify-center">
+                    <div class="w-1 h-1 rounded-full bg-white/60"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Subtle Interactive Hint Pill -->
+              <span
+                id="lamp-hint-pill"
+                class="lighting-transition mt-1.5 px-2.5 py-0.5 rounded-full text-[9px] font-mono uppercase tracking-[0.16em] bg-obsidian/70 text-gold border border-gold/30 backdrop-blur-sm opacity-85 group-hover:opacity-100"
+              >
+                Pull Cord &bull; Day / Night
+              </span>
+            </div>
+          </div>
+
+          <!-- STAGE A: ROOM & WALL SCALE SIMULATOR (DEFAULT ACTIVE) -->
+          <div id="stage-wall" class="relative z-20 w-full flex-1 flex flex-col items-center justify-between px-4 sm:px-8 pt-2 pb-4">
+            <!-- Hung Framed Painting Scaled Proportionally -->
+            <div class="my-auto py-2 flex flex-col items-center">
+              <div
+                id="wall-painting-frame"
+                class="lighting-transition p-2 sm:p-2.5 bg-[#151412] border border-gold/60"
+                style="width: 185px; box-shadow: 0 22px 35px rgba(20, 16, 10, 0.42), 0 0 25px rgba(255, 232, 175, 0.35);"
+              >
+                <div class="aspect-[4/5] w-full overflow-hidden">
+                  <canvas id="modal-wall-canvas" class="lighting-transition w-full h-full block" style="filter: brightness(1.06) contrast(1.03);"></canvas>
+                </div>
+              </div>
+              <div
+                id="wall-scale-caption"
+                class="lighting-transition mt-2.5 px-3 py-1 rounded-full bg-obsidian/75 text-[10px] font-mono tracking-[0.14em] uppercase text-gold backdrop-blur-md border border-gold/25"
+              >
+                Scale Preview (160 &times; 130 cm) &bull; Daylight
+              </div>
+            </div>
+
+            <!-- Designer Architectural Sofa & Credenza Silhouette for Scale Reference -->
+            <div class="w-full max-w-md flex flex-col items-center mt-1">
+              <svg id="room-sofa-svg" viewBox="0 0 460 110" class="lighting-transition w-full h-auto" style="filter: drop-shadow(0 14px 18px rgba(25, 20, 14, 0.45));">
+                <!-- Sofa Backrest -->
+                <rect x="45" y="24" width="370" height="44" rx="14" fill="#2A2723" stroke="#454039" stroke-width="1.2" />
+                <!-- Left & Right Armrests -->
+                <rect x="28" y="38" width="34" height="50" rx="12" fill="#322F2A" stroke="#4F4941" stroke-width="1.2" />
+                <rect x="398" y="38" width="34" height="50" rx="12" fill="#322F2A" stroke="#4F4941" stroke-width="1.2" />
+                <!-- Seat Cushions -->
+                <rect x="58" y="54" width="170" height="32" rx="9" fill="#38342F" stroke="#575148" stroke-width="1.2" />
+                <rect x="232" y="54" width="170" height="32" rx="9" fill="#38342F" stroke="#575148" stroke-width="1.2" />
+                <!-- Brushed Brass Plinth Base -->
+                <rect x="52" y="88" width="356" height="5" rx="2" fill="#B89752" opacity="0.88" />
+                <!-- Legs -->
+                <rect x="68" y="93" width="6" height="12" fill="#181614" />
+                <rect x="386" y="93" width="6" height="12" fill="#181614" />
+              </svg>
+
+              <!-- Wall Color Swatches & Reference Caption Bar -->
+              <div class="w-full flex flex-wrap items-center justify-between gap-2 mt-1 px-2">
+                <span id="sofa-scale-label" class="lighting-transition text-[10px] font-mono uppercase tracking-[0.14em] text-obsidian/75 font-medium">
+                  240 cm Architectural Sofa
+                </span>
+
+                <!-- Wall Finish Color Swatches -->
+                <div class="flex items-center gap-2 bg-obsidian/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-gold/30">
+                  <span class="text-[9px] font-mono uppercase tracking-wider text-alabaster/70">Wall:</span>
+                  <button
+                    type="button"
+                    onclick="setWallSwatch('limestone')"
+                    id="swatch-limestone"
+                    title="Warm Limestone"
+                    class="w-4 h-4 rounded-full border-2 border-gold bg-[#E5DDD0] transition-transform hover:scale-110"
+                  ></button>
+                  <button
+                    type="button"
+                    onclick="setWallSwatch('white')"
+                    id="swatch-white"
+                    title="Gallery White"
+                    class="w-4 h-4 rounded-full border border-white/40 bg-[#F4F2EE] transition-transform hover:scale-110"
+                  ></button>
+                  <button
+                    type="button"
+                    onclick="setWallSwatch('slate')"
+                    id="swatch-slate"
+                    title="Venetian Slate"
+                    class="w-4 h-4 rounded-full border border-white/40 bg-[#5C626D] transition-transform hover:scale-110"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STAGE B: CLOSE-UP DETAIL INSPECTION (REACTS TO DAY / NIGHT LAMP TOO) -->
+          <div id="stage-inspect" class="hidden relative z-20 w-full max-w-[400px] flex-1 flex flex-col items-center justify-center px-6 py-4">
+            <div
+              id="inspect-painting-frame"
+              class="lighting-transition gallery-frame rounded-lg p-3.5 sm:p-4 w-full"
+              style="box-shadow: 0 25px 50px rgba(25, 20, 14, 0.45), 0 0 35px rgba(255, 232, 175, 0.3);"
+            >
+              <div class="aspect-[4/5] w-full overflow-hidden rounded bg-obsidian">
+                <canvas id="modal-inspect-canvas" class="lighting-transition w-full h-full block" style="filter: brightness(1.07) contrast(1.04);"></canvas>
+              </div>
+            </div>
+            <div
+              id="inspect-caption"
+              class="lighting-transition mt-3 px-3 py-1 rounded-full bg-obsidian/75 text-[10px] font-mono uppercase tracking-[0.16em] text-gold border border-gold/25"
+            >
+              Impasto &amp; 24k Gold Leaf Inspection &bull; Daylight
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Metadata, Provenance Certificate Preview & VIP Acquisition Form (5 Cols) -->
+        <div class="lg:col-span-5 p-6 sm:p-8 space-y-5 bg-surface">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span id="modal-category" class="text-xs uppercase tracking-[0.2em] text-gold">Oil &amp; Gold Leaf</span>
+              <span id="modal-status-badge" class="px-3 py-0.5 rounded-full text-[11px] uppercase tracking-wider font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                Available
+              </span>
+            </div>
+            <h2 id="modal-title" class="font-serif text-3xl sm:text-4xl text-alabaster font-normal">Sovereign Nocturne VII</h2>
+            <div class="flex items-baseline justify-between gap-2 mt-1">
+              <div id="modal-price" class="font-mono text-xl sm:text-2xl text-gold">$68,000</div>
+              <div class="font-mono text-[11px] text-mutedSlate">by Carmen Petraru</div>
+            </div>
+          </div>
+
+          <!-- Museum Specification Grid -->
+          <div class="grid grid-cols-2 gap-3 py-3.5 border-y border-gold/15 text-xs">
+            <div>
+              <div class="text-mutedSlate uppercase tracking-wider text-[10px]">Dimensions</div>
+              <div id="modal-dimensions" class="font-mono text-alabaster mt-0.5 text-[11px]">160 &times; 130 cm</div>
+            </div>
+            <div>
+              <div class="text-mutedSlate uppercase tracking-wider text-[10px]">Year &amp; Edition</div>
+              <div id="modal-year-edition" class="font-mono text-alabaster mt-0.5 text-[11px]">2026 &bull; Unique 1/1</div>
+            </div>
+            <div class="col-span-2">
+              <div class="text-mutedSlate uppercase tracking-wider text-[10px]">Medium &amp; Support</div>
+              <div id="modal-medium" class="text-alabaster mt-0.5 font-medium">Oil &amp; 24k Gold Leaf on Belgian Linen</div>
+            </div>
+          </div>
+
+          <!-- Interactive Provenance Certificate Preview ("carmenpetraru-art Verified Provenance") -->
+          <div class="rounded-xl bg-obsidian/80 border border-gold/30 overflow-hidden">
+            <button
+              type="button"
+              onclick="toggleProvenanceCertificate()"
+              class="w-full flex items-center justify-between gap-3 p-3.5 text-left hover:bg-gold/5 transition-colors"
+            >
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gold/15 flex items-center justify-center text-gold shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-mono text-[11px] font-medium text-gold">carmenpetraru-art Verified Provenance</div>
+                  <div class="text-[11px] text-mutedSlate">Click to inspect official archival certificate</div>
+                </div>
+              </div>
+              <span id="cert-chevron" class="font-mono text-xs text-gold">+</span>
+            </button>
+
+            <div id="provenance-cert-drawer" class="hidden px-4 pb-4 pt-2 border-t border-gold/15 bg-gradient-to-b from-gold/[0.04] to-transparent space-y-2 text-[11px]">
+              <div class="flex justify-between">
+                <span class="text-mutedSlate">Artist:</span>
+                <span class="font-serif italic text-sm text-alabaster">Carmen Petraru</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-mutedSlate">Registry ID:</span>
+                <span id="cert-registry-id" class="font-mono text-gold">CP-2026-01-VERIFIED</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-mutedSlate">Origin:</span>
+                <span id="modal-provenance" class="text-alabaster/85 text-right max-w-[210px]">Studio Carmen Petraru, Zurich</span>
+              </div>
+              <div class="pt-1.5 border-t border-gold/10 flex items-center justify-between font-mono text-[10px] text-gold/80">
+                <span>SHA-256: 0x9F4C...E82A</span>
+                <span>SIGNED 1/1 ORIGINAL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Private Acquisition Inquiry Form -->
+          <form id="acquisition-form" onsubmit="submitAcquisitionInquiry(event)" class="space-y-3 pt-1">
+            <div class="text-xs uppercase tracking-[0.2em] text-gold font-medium">VIP Private Acquisition Inquiry</div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <input
+                type="text"
+                id="inq-name"
+                required
+                placeholder="Full Name / Family Office"
+                class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster placeholder:text-mutedSlate"
+              />
+              <input
+                type="email"
+                id="inq-email"
+                required
+                placeholder="Private Email Address"
+                class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster placeholder:text-mutedSlate"
+              />
+            </div>
+
+            <input
+              type="text"
+              id="inq-location"
+              required
+              placeholder="City & Country (e.g., Zurich, London, New York, Paris, Dubai)"
+              class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster placeholder:text-mutedSlate"
+            />
+
+            <textarea
+              id="inq-message"
+              rows="2"
+              required
+              placeholder="Acquisition notes, crating destination, or private viewing request..."
+              class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster placeholder:text-mutedSlate resize-none"
+            ></textarea>
+
+            <button
+              type="submit"
+              class="w-full py-3.5 rounded-lg bg-gold hover:bg-gold-light text-obsidian text-xs tracking-[0.2em] uppercase font-semibold transition-all shadow-lg shadow-gold/15"
+            >
+              Transmit Private Inquiry
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 2: PUBLISH NEW ARTWORK MODAL (STUDIO ADMIN)                     -->
+  <!-- ===================================================================== -->
+  <div id="publish-modal" class="modal-backdrop fixed inset-0 z-50 hidden opacity-0 items-center justify-center bg-obsidian/90 backdrop-blur-xl p-4 overflow-y-auto">
+    <div class="modal-panel relative w-full max-w-2xl rounded-2xl bg-surface border border-gold/30 shadow-museum overflow-hidden my-auto transform scale-95">
+      <div class="px-6 py-4 bg-obsidian border-b border-gold/20 flex items-center justify-between">
+        <div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.22em] text-gold">carmenpetraru-art &bull; Studio Archive</div>
+          <h3 class="font-serif text-2xl text-alabaster">Publish New Original Artwork</h3>
+        </div>
+        <button onclick="closePublishModal()" class="w-8 h-8 rounded-lg border border-gold/25 hover:border-gold text-alabaster/70 hover:text-gold flex items-center justify-center">
+          &#10005;
+        </button>
+      </div>
+
+      <form onsubmit="handlePublishArtwork(event)" class="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        <!-- Live Procedural Canvas Preview -->
+        <div class="md:col-span-5 flex flex-col items-center">
+          <div class="gallery-frame rounded-lg p-2.5 w-full max-w-[210px]">
+            <div class="aspect-[4/5] w-full overflow-hidden rounded bg-obsidian">
+              <canvas id="publish-preview-canvas" class="w-full h-full block"></canvas>
+            </div>
+          </div>
+          <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-gold/80 mt-2.5">Signed C. Petraru Study</span>
+        </div>
+
+        <!-- Form Fields -->
+        <div class="md:col-span-7 space-y-4">
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-mutedSlate mb-1">Artwork Title</label>
+            <input type="text" id="pub-title" oninput="updatePublishPreview()" required placeholder="e.g., Aurelia Nocturne IX" class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-mutedSlate mb-1">Category</label>
+              <select id="pub-category" class="luxury-select w-full px-3 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster">
+                <option value="Oil & Gold Leaf">Oil &amp; Gold Leaf</option>
+                <option value="Abstract & Texture">Abstract &amp; Texture</option>
+                <option value="Monumental Scale">Monumental Scale</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-mutedSlate mb-1">Procedural Palette</label>
+              <select id="pub-palette" onchange="updatePublishPreview()" class="luxury-select w-full px-3 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster">
+                <option value="midnight-gold">Midnight &amp; 24k Gold Leaf</option>
+                <option value="sahara-ochre">Sahara Ochre &amp; Sienna</option>
+                <option value="nordic-mist">Nordic Mist &amp; Alabaster</option>
+                <option value="crimson-impasto">Venetian Crimson Impasto</option>
+                <option value="aegean-bronze">Aegean Cobalt &amp; Bronze</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-mutedSlate mb-1">Optional Artwork Image URL (Leave blank for Procedural Art)</label>
+            <input type="url" id="pub-image-url" placeholder="https://..." class="w-full px-3.5 py-2 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster placeholder:text-mutedSlate/60" />
+          </div>
+
+          <div>
+            <label class="block text-[11px] uppercase tracking-wider text-mutedSlate mb-1">Medium</label>
+            <input type="text" id="pub-medium" required value="Oil & 24k Gold Leaf on Belgian Linen" class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none text-xs text-alabaster" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-mutedSlate mb-1">Dimensions</label>
+              <input type="text" id="pub-dimensions" required value="150 × 120 cm (59 × 47.2 in)" class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none font-mono text-xs text-alabaster" />
+            </div>
+            <div>
+              <label class="block text-[11px] uppercase tracking-wider text-mutedSlate mb-1">Valuation (USD)</label>
+              <input type="number" id="pub-price" required min="5000" step="500" value="58000" class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian border border-gold/25 focus:border-gold focus:outline-none font-mono text-xs text-alabaster" />
+            </div>
+          </div>
+
+          <div class="pt-2 flex items-center justify-end gap-3">
+            <button type="button" onclick="closePublishModal()" class="px-4 py-2.5 rounded-lg border border-gold/25 text-xs uppercase tracking-wider text-alabaster/70 hover:text-alabaster">
+              Cancel
+            </button>
+            <button type="submit" class="px-6 py-2.5 rounded-lg bg-gold hover:bg-gold-light text-obsidian text-xs uppercase tracking-[0.16em] font-semibold">
+              Publish to Gallery
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT: PROCEDURAL FINE-ART ENGINE, LAMP PHYSICS & APP LOGIC      -->
+  <!-- ===================================================================== -->
+  <script>
+    /* ---------------------------------------------------------------------
+       1. CURRENCY CONVERSION ENGINE (USD $, EUR €, GBP £, CHF)
+    --------------------------------------------------------------------- */
+    const CURRENCIES = {
+      USD: { symbol: '$', rate: 1.0, prefix: true },
+      EUR: { symbol: '€', rate: 0.92, prefix: true },
+      GBP: { symbol: '£', rate: 0.79, prefix: true },
+      CHF: { symbol: 'CHF ', rate: 0.88, prefix: true }
+    };
+    let currentCurrency = 'USD';
+
+    function formatPrice(usdAmount) {
+      const cfg = CURRENCIES[currentCurrency] || CURRENCIES.USD;
+      const converted = Math.round((Number(usdAmount) || 0) * cfg.rate);
+      return `${cfg.symbol}${converted.toLocaleString('en-US')}`;
+    }
+
+    function setCurrency(code) {
+      if (!CURRENCIES[code]) return;
+      currentCurrency = code;
+      renderGallery();
+      if (currentView === 'dashboard') {
+        renderDashboard();
+      }
+      if (activeViewingArtwork) {
+        document.getElementById('modal-price').textContent = activeViewingArtwork.priceOnRequest
+          ? 'Price Upon Request'
+          : formatPrice(activeViewingArtwork.price);
+      }
+      showToast('Currency Updated', `All valuations converted to ${code}.`);
+    }
+
+    /* ---------------------------------------------------------------------
+       2. DETERMINISTIC SEEDED PRNG & PROCEDURAL FINE-ART ENGINE (C. PETRARU)
+    --------------------------------------------------------------------- */
+    function createSeededRandom(seedStr) {
+      let h = 2166136261 >>> 0;
+      for (let i = 0; i < seedStr.length; i++) {
+        h ^= seedStr.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return function () {
+        h += 0x6D2B79F5;
+        let t = Math.imul(h ^ (h >>> 15), 1 | h);
+        t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    const PALETTES = {
+      'midnight-gold': {
+        bg: ['#080a10', '#111625', '#1a2033'],
+        strokes: ['#161d31', '#252e47', '#0c0e14', '#383226', '#d8b86c'],
+        accent: '#d4af37',
+        accentLight: '#f3dc99',
+        style: 'gold-leaf'
+      },
+      'sahara-ochre': {
+        bg: ['#261710', '#4a2b18', '#734424'],
+        strokes: ['#8c522b', '#b8763e', '#d69e66', '#331c11', '#e8cfa8'],
+        accent: '#c9934b',
+        accentLight: '#f0d5a8',
+        style: 'impasto'
+      },
+      'nordic-mist': {
+        bg: ['#1d2226', '#394247', '#6c767a'],
+        strokes: ['#8d9699', '#b5bcb8', '#dfd9ce', '#2a3136', '#cbb994'],
+        accent: '#d9ceb8',
+        accentLight: '#f2ece1',
+        style: 'color-field'
+      },
+      'crimson-impasto': {
+        bg: ['#170709', '#380d12', '#5c141c'],
+        strokes: ['#7a1924', '#9e2431', '#1c0a0c', '#c78d52', '#e8dfd3'],
+        accent: '#c99e57',
+        accentLight: '#edd4a4',
+        style: 'impasto'
+      },
+      'aegean-bronze': {
+        bg: ['#081624', '#0e2942', '#174063'],
+        strokes: ['#1f537d', '#2b6b9c', '#0b1926', '#8f6938', '#d4af63'],
+        accent: '#cfa455',
+        accentLight: '#f2d99b',
+        style: 'gold-leaf'
+      },
+      'obsidian-monolith': {
+        bg: ['#0c0c0e', '#18181b', '#272624'],
+        strokes: ['#1f1e1c', '#36332e', '#09090b', '#8f8370', '#C8A96E'],
+        accent: '#C8A96E',
+        accentLight: '#e3cb8e',
+        style: 'color-field'
+      }
+    };
+
+    function drawProceduralPaint(ctx, width, height, artwork, highRes) {
+      const rand = createSeededRandom(artwork.seed || artwork.id);
+      const pal = PALETTES[artwork.palette] || PALETTES['midnight-gold'];
+
+      // 1. Rich Multi-Tone Underpainting Wash
+      const bgGrad = ctx.createLinearGradient(0, 0, width * (0.4 + rand() * 0.6), height);
+      bgGrad.addColorStop(0, pal.bg[0]);
+      bgGrad.addColorStop(0.55, pal.bg[1]);
+      bgGrad.addColorStop(1, pal.bg[2]);
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      // 2. Atmospheric Sub-Glazes
+      for (let i = 0; i < 6; i++) {
+        const gx = rand() * width;
+        const gy = rand() * height;
+        const gr = width * (0.35 + rand() * 0.55);
+        const rad = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
+        rad.addColorStop(0, pal.strokes[i % pal.strokes.length] + '55');
+        rad.addColorStop(1, 'transparent');
+        ctx.fillStyle = rad;
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      // 3. Style-Specific Painterly Composition
+      if (pal.style === 'color-field') {
+        const bands = 3 + Math.floor(rand() * 2);
+        let curY = height * 0.08;
+        for (let b = 0; b < bands; b++) {
+          const bandH = (height * 0.82) / bands - height * 0.03;
+          const color = pal.strokes[b % pal.strokes.length];
+          ctx.save();
+          ctx.filter = `blur(${Math.max(4, Math.floor(width * 0.025))}px)`;
+          ctx.fillStyle = color + 'CC';
+          ctx.fillRect(width * 0.09, curY, width * 0.82, bandH);
+          ctx.restore();
+
+          for (let s = 0; s < 35; s++) {
+            ctx.fillStyle = pal.accentLight + '18';
+            ctx.fillRect(
+              width * (0.09 + rand() * 0.1),
+              curY + bandH * (0.85 + rand() * 0.2),
+              width * (0.65 + rand() * 0.16),
+              1 + rand() * 2.5
+            );
+          }
+          curY += bandH + height * 0.04;
+        }
+      } else if (pal.style === 'impasto') {
+        const strokeCount = highRes ? 95 : 45;
+        for (let i = 0; i < strokeCount; i++) {
+          const sx = rand() * width;
+          const sy = rand() * height;
+          const sw = width * (0.14 + rand() * 0.34);
+          const sh = height * (0.018 + rand() * 0.055);
+          const angle = (rand() - 0.5) * 0.65 + (i % 3 === 0 ? 1.2 : 0.15);
+          const col = pal.strokes[Math.floor(rand() * pal.strokes.length)];
+
+          ctx.save();
+          ctx.translate(sx, sy);
+          ctx.rotate(angle);
+
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.38)';
+          ctx.fillRect(-sw / 2 + 2, -sh / 2 + 3, sw, sh);
+
+          ctx.fillStyle = col;
+          ctx.fillRect(-sw / 2, -sh / 2, sw, sh);
+
+          ctx.fillStyle = 'rgba(255, 248, 232, 0.16)';
+          ctx.fillRect(-sw / 2, -sh / 2, sw, Math.max(1.5, sh * 0.16));
+          ctx.restore();
+        }
+      } else {
+        const brushCount = highRes ? 65 : 32;
+        for (let i = 0; i < brushCount; i++) {
+          ctx.save();
+          ctx.beginPath();
+          const startX = rand() * width;
+          const startY = rand() * height;
+          ctx.moveTo(startX, startY);
+          ctx.bezierCurveTo(
+            startX + (rand() - 0.5) * width * 0.7,
+            startY + (rand() - 0.5) * height * 0.5,
+            startX + (rand() - 0.5) * width * 0.7,
+            startY + (rand() - 0.5) * height * 0.6,
+            startX + (rand() - 0.5) * width * 0.5,
+            startY + (rand() - 0.5) * height * 0.5
+          );
+          ctx.strokeStyle = pal.strokes[i % pal.strokes.length] + '99';
+          ctx.lineWidth = (4 + rand() * 26) * (width / 420);
+          ctx.lineCap = 'round';
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+
+      // 4. 24-Karat Metallic Gold Leaf Gilding Shards & Veins
+      if (pal.style === 'gold-leaf' || rand() > 0.35) {
+        const shardCount = pal.style === 'gold-leaf' ? 18 : 7;
+        const centerX = width * (0.35 + rand() * 0.3);
+        const centerY = height * (0.3 + rand() * 0.4);
+
+        for (let g = 0; g < shardCount; g++) {
+          const gx = centerX + (rand() - 0.5) * width * 0.52;
+          const gy = centerY + (rand() - 0.5) * height * 0.58;
+          const gw = width * (0.03 + rand() * 0.13);
+          const gh = height * (0.02 + rand() * 0.11);
+
+          ctx.save();
+          ctx.translate(gx, gy);
+          ctx.rotate(rand() * Math.PI);
+
+          const goldGrad = ctx.createLinearGradient(-gw / 2, -gh / 2, gw / 2, gh / 2);
+          goldGrad.addColorStop(0, '#967126');
+          goldGrad.addColorStop(0.45, pal.accent);
+          goldGrad.addColorStop(0.75, pal.accentLight);
+          goldGrad.addColorStop(1, '#85621e');
+
+          ctx.fillStyle = goldGrad;
+          ctx.beginPath();
+          ctx.moveTo(-gw * 0.5, -gh * 0.3);
+          ctx.lineTo(gw * 0.45, -gh * 0.5);
+          ctx.lineTo(gw * 0.5, gh * 0.4);
+          ctx.lineTo(-gw * 0.35, gh * 0.5);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      // 5. Woven Belgian Linen Canvas Grain & Museum Vignette
+      ctx.save();
+      ctx.globalAlpha = 0.065;
+      ctx.fillStyle = '#ffffff';
+      const step = highRes ? 3 : 4;
+      for (let y = 0; y < height; y += step) {
+        ctx.fillRect(0, y, width, 1);
+      }
+      for (let x = 0; x < width; x += step) {
+        ctx.fillRect(x, 0, 1, height);
+      }
+      ctx.restore();
+
+      const vig = ctx.createRadialGradient(width / 2, height / 2, width * 0.28, width / 2, height / 2, width * 0.78);
+      vig.addColorStop(0, 'transparent');
+      vig.addColorStop(1, 'rgba(5, 5, 7, 0.48)');
+      ctx.fillStyle = vig;
+      ctx.fillRect(0, 0, width, height);
+
+      // 6. Subtle Artist Signature ("C. Petraru") in Lower Right Corner
+      if (highRes && width >= 220) {
+        ctx.save();
+        ctx.font = `italic ${Math.max(11, Math.round(width * 0.032))}px "Cormorant Garamond", Georgia, serif`;
+        ctx.fillStyle = 'rgba(244, 239, 230, 0.62)';
+        ctx.textAlign = 'right';
+        ctx.fillText('C. Petraru', width - Math.round(width * 0.055), height - Math.round(height * 0.04));
+        ctx.restore();
+      }
+    }
+
+    function renderArtworkToCanvas(canvas, artwork, highRes = true) {
+      if (!canvas || !artwork) return;
+      const dpr = highRes ? Math.min(window.devicePixelRatio || 1, 2) : 1;
+      const rect = canvas.getBoundingClientRect();
+      const width = Math.max(Math.floor((rect.width || 320) * dpr), highRes ? 420 : 120);
+      const height = Math.max(Math.floor((rect.height || 400) * dpr), highRes ? 525 : 150);
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+
+      // Render deterministic procedural artwork first
+      drawProceduralPaint(ctx, width, height, artwork, highRes);
+
+      // If custom external image URL was added via Studio Admin, overlay gracefully with fallback
+      if (artwork.imageUrl) {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, width, height);
+        };
+        img.src = artwork.imageUrl;
+      }
+    }
+
+    /* ---------------------------------------------------------------------
+       3. CURATED CARMEN PETRARU COLLECTION & VIP INQUIRIES STATE
+    --------------------------------------------------------------------- */
+    let artworks = [
+      {
+        id: 'art-1',
+        lot: 'CP-2026-01',
+        title: 'Sovereign Nocturne VII',
+        year: 2026,
+        category: 'Oil & Gold Leaf',
+        medium: 'Oil & 24k Gold Leaf on Belgian Linen',
+        dimensions: '160 × 130 cm (63 × 51.2 in)',
+        widthCm: 160,
+        price: 68000,
+        priceOnRequest: false,
+        status: 'Available',
+        palette: 'midnight-gold',
+        seed: 'carmen-petraru-sovereign-nocturne-vii',
+        provenance: 'Studio Carmen Petraru, Zurich • Solo Exhibition Highlight'
+      },
+      {
+        id: 'art-2',
+        lot: 'CP-2026-02',
+        title: 'Dunes of Raw Sienna IV',
+        year: 2026,
+        category: 'Abstract & Texture',
+        medium: 'Heavy Impasto Oil, Sahara Ochre & Cold Wax on Linen',
+        dimensions: '180 × 140 cm (70.9 × 55.1 in)',
+        widthCm: 180,
+        price: 74000,
+        priceOnRequest: false,
+        status: 'Available',
+        palette: 'sahara-ochre',
+        seed: 'carmen-petraru-dunes-sienna-iv',
+        provenance: 'Studio Carmen Petraru, Paris • Spring Salon Selection'
+      },
+      {
+        id: 'art-3',
+        lot: 'CP-2025-03',
+        title: 'Fjord Mist & Alabaster',
+        year: 2025,
+        category: 'Abstract & Texture',
+        medium: 'Translucent Oil Glazes & Chalk Gesso on Fine Linen',
+        dimensions: '150 × 120 cm (59 × 47.2 in)',
+        widthCm: 150,
+        price: 54000,
+        priceOnRequest: false,
+        status: 'Reserved',
+        palette: 'nordic-mist',
+        seed: 'carmen-petraru-fjord-mist-03',
+        provenance: 'Private Collector Preview, Geneva'
+      },
+      {
+        id: 'art-4',
+        lot: 'CP-2026-04',
+        title: 'Venetian Requiem in Crimson',
+        year: 2026,
+        category: 'Oil & Gold Leaf',
+        medium: 'Alizarin Crimson Oil, Gold Vein & Palette Knife Relief',
+        dimensions: '140 × 110 cm (55.1 × 43.3 in)',
+        widthCm: 140,
+        price: 62000,
+        priceOnRequest: false,
+        status: 'Available',
+        palette: 'crimson-impasto',
+        seed: 'carmen-petraru-venetian-crimson-04',
+        provenance: 'Studio Carmen Petraru, London Mayfair'
+      },
+      {
+        id: 'art-5',
+        lot: 'CP-2026-05',
+        title: 'Aegean Meridian & Bronze',
+        year: 2026,
+        category: 'Monumental Scale',
+        medium: '24k Gold Leaf, Oxidized Bronze & Lapis Oil on Linen',
+        dimensions: '210 × 165 cm (82.7 × 65 in)',
+        widthCm: 210,
+        price: 108000,
+        priceOnRequest: true,
+        status: 'Available',
+        palette: 'aegean-bronze',
+        seed: 'carmen-petraru-aegean-monumental-05',
+        provenance: 'carmenpetraru-art Monumental Series, Zurich'
+      },
+      {
+        id: 'art-6',
+        lot: 'CP-2025-06',
+        title: 'Obsidian Monolith II',
+        year: 2025,
+        category: 'Monumental Scale',
+        medium: 'Carbon Pigment, Raw Umber & 24k Gold Leaf on Linen',
+        dimensions: '190 × 145 cm (74.8 × 57.1 in)',
+        widthCm: 190,
+        price: 58000,
+        priceOnRequest: false,
+        status: 'Sold',
+        palette: 'obsidian-monolith',
+        seed: 'carmen-petraru-obsidian-monolith-06',
+        provenance: 'Acquired by Private Family Office, Zurich'
+      }
+    ];
+
+    let inquiries = [
+      {
+        id: 'inq-101',
+        name: 'Henrik von Berg',
+        email: 'h.vonberg@helvetiawealth.ch',
+        location: 'Zurich, Switzerland',
+        artworkTitle: 'Sovereign Nocturne VII',
+        message: 'Tested Sovereign Nocturne VII under both Day and Night lamp settings in your Viewing Room—extraordinary gold shimmer. Please send acquisition dossier.',
+        timestamp: '1 hour ago',
+        status: 'New Lead'
+      },
+      {
+        id: 'inq-102',
+        name: 'Lady Victoria Sterling',
+        email: 'v.sterling@kensingtonadvisory.co.uk',
+        location: 'London, United Kingdom',
+        artworkTitle: 'Aegean Meridian & Bronze',
+        message: 'Requesting private viewing appointment and insured air-crate quote to Belgravia, London.',
+        timestamp: 'Yesterday',
+        status: 'Call Scheduled'
+      },
+      {
+        id: 'inq-103',
+        name: 'Laurent de Valois',
+        email: 'l.devalois@vendomecapital.fr',
+        location: 'Paris, France',
+        artworkTitle: 'Dunes of Raw Sienna IV',
+        message: 'Interested in acquiring Dunes of Raw Sienna IV for our Place Vendôme salon.',
+        timestamp: '2 days ago',
+        status: 'New Lead'
+      }
+    ];
+
+    let currentView = 'exhibition';
+    let currentFilter = 'all';
+    let activeViewingArtwork = null;
+    let viewingMode = 'wall';
+    let isLampOn = true; // True = Daylight Mode (النهار), False = Night Mode (الوضع الليلي)
+    let activeWallSwatch = 'limestone';
+
+    /* ---------------------------------------------------------------------
+       4. VIEW SWITCHING & NAVIGATION
+    --------------------------------------------------------------------- */
+    function switchView(targetView) {
+      currentView = targetView;
+      const exhibitionEl = document.getElementById('exhibition-view');
+      const dashboardEl = document.getElementById('dashboard-view');
+      const exNav = document.getElementById('exhibition-nav');
+      const dashNavLabel = document.getElementById('dashboard-nav-label');
+      const toggleText = document.getElementById('view-toggle-text');
+      const toggleTextMobile = document.getElementById('view-toggle-text-mobile');
+
+      if (targetView === 'dashboard') {
+        exhibitionEl.classList.add('hidden');
+        dashboardEl.classList.remove('hidden');
+        exNav.classList.add('hidden');
+        exNav.classList.remove('lg:flex');
+        dashNavLabel.classList.remove('hidden');
+        dashNavLabel.classList.add('lg:flex');
+        toggleText.textContent = 'Public Exhibition';
+        toggleTextMobile.textContent = 'Gallery';
+        renderDashboard();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        dashboardEl.classList.add('hidden');
+        exhibitionEl.classList.remove('hidden');
+        dashNavLabel.classList.add('hidden');
+        dashNavLabel.classList.remove('lg:flex');
+        exNav.classList.remove('hidden');
+        exNav.classList.add('lg:flex');
+        toggleText.textContent = 'Curator Dashboard';
+        toggleTextMobile.textContent = 'Studio';
+        renderHeroCanvas();
+        renderGallery();
+      }
+    }
+
+    function toggleMainView() {
+      switchView(currentView === 'exhibition' ? 'dashboard' : 'exhibition');
+    }
+
+    function navigateSection(sectionId) {
+      if (currentView !== 'exhibition') {
+        switchView('exhibition');
+      }
+      setTimeout(() => {
+        const target = document.getElementById(sectionId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 60);
+    }
+
+    /* ---------------------------------------------------------------------
+       5. EXHIBITION GALLERY & HERO RENDERING
+    --------------------------------------------------------------------- */
+    function renderHeroCanvas() {
+      const heroCanvas = document.getElementById('hero-featured-canvas');
+      if (heroCanvas && artworks[0]) {
+        renderArtworkToCanvas(heroCanvas, artworks[0], true);
+      }
+    }
+
+    function getStatusBadgeHTML(status) {
+      if (status === 'Available') {
+        return `<span class="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-[0.16em] font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Available</span>`;
+      }
+      if (status === 'Reserved') {
+        return `<span class="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-[0.16em] font-medium bg-amber-500/15 text-amber-300 border border-amber-500/30">Reserved</span>`;
+      }
+      return `<span class="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-[0.16em] font-medium bg-rose-500/15 text-rose-300 border border-rose-500/30">Sold</span>`;
+    }
+
+    function filterGallery(category) {
+      currentFilter = category;
+      document.querySelectorAll('.filter-tab').forEach((btn) => {
+        if (btn.dataset.category === category) {
+          btn.classList.add('bg-gold', 'text-obsidian', 'font-semibold');
+          btn.classList.remove('text-alabaster/70');
+        } else {
+          btn.classList.remove('bg-gold', 'text-obsidian', 'font-semibold');
+          btn.classList.add('text-alabaster/70');
+        }
+      });
+      renderGallery();
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById('gallery-grid');
+      if (!grid) return;
+
+      const filtered = currentFilter === 'all'
+        ? artworks
+        : artworks.filter((a) => a.category === currentFilter);
+
+      grid.innerHTML = filtered.map((art) => {
+        const displayPrice = art.priceOnRequest ? 'Price Upon Request' : formatPrice(art.price);
+        return `
+          <article
+            onclick="openViewingRoom('${art.id}')"
+            class="artwork-card spotlight-card group cursor-pointer rounded-2xl bg-surface border border-gold/20 hover:border-gold/55 p-5 sm:p-6 flex flex-col justify-between transition-all duration-500"
+          >
+            <div>
+              <!-- Framed Procedural Artwork -->
+              <div class="gallery-frame rounded-xl mb-6">
+                <div class="aspect-[4/5] w-full overflow-hidden rounded bg-obsidian relative">
+                  <canvas id="canvas-${art.id}" class="w-full h-full block transition-transform duration-700 group-hover:scale-[1.03]"></canvas>
+                  <div class="absolute inset-0 bg-obsidian/0 group-hover:bg-obsidian/25 transition-colors flex items-center justify-center">
+                    <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4 py-2 rounded-lg bg-obsidian/90 border border-gold/50 text-gold text-[11px] uppercase tracking-[0.18em] backdrop-blur-md">
+                      Viewing Room &amp; Lamp &rarr;
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Metadata -->
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="font-mono text-[10px] uppercase tracking-[0.16em] text-gold/90">${art.lot} &bull; ${art.category}</span>
+                ${getStatusBadgeHTML(art.status)}
+              </div>
+
+              <h3 class="font-serif text-2xl sm:text-[26px] text-alabaster group-hover:text-gold transition-colors leading-snug">
+                ${art.title}
+              </h3>
+              <p class="text-xs text-mutedSlate mt-1 font-light">${art.medium}</p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gold/15 flex items-center justify-between text-xs">
+              <span class="font-mono text-[11px] text-mutedSlate">${art.dimensions.split('(')[0].trim()} &bull; ${art.year}</span>
+              <span class="font-mono text-sm sm:text-base text-alabaster font-medium">${displayPrice}</span>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      requestAnimationFrame(() => {
+        filtered.forEach((art) => {
+          const canvas = document.getElementById(`canvas-${art.id}`);
+          renderArtworkToCanvas(canvas, art, true);
+        });
+        attachSpotlightListeners();
+      });
+    }
+
+    /* ---------------------------------------------------------------------
+       6. PRIVATE VIEWING ROOM & INTERACTIVE HANGING LAMP (DAY / NIGHT)
+    --------------------------------------------------------------------- */
+    const WALL_SWATCHES = {
+      limestone: {
+        dayBg: 'linear-gradient(180deg, #EAE3D5 0%, #D9CFC0 72%, #8F8577 72.3%, #5E564B 100%)',
+        nightBg: 'linear-gradient(180deg, #101218 0%, #0A0C10 72%, #06070A 72.3%, #040507 100%)'
+      },
+      white: {
+        dayBg: 'linear-gradient(180deg, #F5F3EE 0%, #E7E4DC 72%, #9A958C 72.3%, #68645D 100%)',
+        nightBg: 'linear-gradient(180deg, #12151C 0%, #0B0D12 72%, #07080B 72.3%, #040507 100%)'
+      },
+      slate: {
+        dayBg: 'linear-gradient(180deg, #6C737E 0%, #525862 72%, #32363D 72.3%, #1F2227 100%)',
+        nightBg: 'linear-gradient(180deg, #0B0D12 0%, #07090E 72%, #040508 72.3%, #020305 100%)'
+      }
+    };
+
+    function setWallSwatch(swatchName) {
+      if (!WALL_SWATCHES[swatchName]) return;
+      activeWallSwatch = swatchName;
+
+      ['limestone', 'white', 'slate'].forEach((key) => {
+        const el = document.getElementById(`swatch-${key}`);
+        if (el) {
+          if (key === swatchName) {
+            el.classList.add('border-2', 'border-gold', 'scale-110');
+            el.classList.remove('border', 'border-white/40');
+          } else {
+            el.classList.remove('border-2', 'border-gold', 'scale-110');
+            el.classList.add('border', 'border-white/40');
+          }
+        }
+      });
+
+      applyViewingLighting();
+    }
+
+    function toggleViewingLamp() {
+      isLampOn = !isLampOn;
+
+      // Trigger physical spring tug animation on the hanging brass pull-cord
+      const cord = document.getElementById('lamp-pull-cord');
+      if (cord) {
+        cord.classList.remove('animate-cord-tug');
+        void cord.offsetWidth; // Force reflow to restart animation cleanly
+        cord.classList.add('animate-cord-tug');
+      }
+
+      applyViewingLighting();
+    }
+
+    function applyViewingLighting() {
+      const stageContainer = document.getElementById('viewing-stage-container');
+      const windowRays = document.getElementById('window-sunlight-overlay');
+      const nightMoonOverlay = document.getElementById('night-moonlight-overlay');
+      const lightCone = document.getElementById('lamp-light-cone');
+      const bulb = document.getElementById('lamp-bulb');
+      const filament = document.getElementById('lamp-filament');
+      const innerReflector = document.getElementById('lamp-inner-reflector');
+      const wallFrame = document.getElementById('wall-painting-frame');
+      const wallCanvas = document.getElementById('modal-wall-canvas');
+      const inspectFrame = document.getElementById('inspect-painting-frame');
+      const inspectCanvas = document.getElementById('modal-inspect-canvas');
+      const sofaSvg = document.getElementById('room-sofa-svg');
+      const sofaLabel = document.getElementById('sofa-scale-label');
+      const scaleCaption = document.getElementById('wall-scale-caption');
+      const inspectCaption = document.getElementById('inspect-caption');
+
+      // Toolbar button & icon elements
+      const sunIcon = document.getElementById('lamp-icon-sun');
+      const moonIcon = document.getElementById('lamp-icon-moon');
+      const btnLabel = document.getElementById('lamp-btn-label');
+      const btnToggle = document.getElementById('btn-lamp-toggle');
+
+      const swatch = WALL_SWATCHES[activeWallSwatch] || WALL_SWATCHES.limestone;
+      const dimShort = activeViewingArtwork ? activeViewingArtwork.dimensions.split('(')[0].trim() : '160 × 130 cm';
+
+      if (isLampOn) {
+        // ==================== LAMP ON — DAYLIGHT MODE (النهار) ====================
+        stageContainer.style.background = swatch.dayBg;
+        windowRays.style.opacity = activeWallSwatch === 'slate' ? '0.45' : '0.9';
+        nightMoonOverlay.style.opacity = '0';
+        lightCone.style.opacity = '0.95';
+
+        // Brass lamp bulb & filament glowing warmly
+        bulb.style.background = 'radial-gradient(circle, #FFFDF7 20%, #FDE08D 65%, #D4A13B 100%)';
+        bulb.style.boxShadow = '0 0 28px 10px rgba(255, 226, 148, 0.85)';
+        filament.style.opacity = '0.95';
+        innerReflector.setAttribute('fill', '#FFF3D1');
+
+        // Artwork & Frame in warm gallery daylight
+        wallFrame.style.boxShadow = '0 22px 35px rgba(20, 16, 10, 0.42), 0 0 28px rgba(255, 232, 175, 0.35)';
+        wallCanvas.style.filter = 'brightness(1.07) contrast(1.03)';
+        inspectFrame.style.boxShadow = '0 25px 50px rgba(20, 16, 10, 0.45), 0 0 35px rgba(255, 232, 175, 0.32)';
+        inspectCanvas.style.filter = 'brightness(1.07) contrast(1.04)';
+
+        // Sofa clearly lit
+        sofaSvg.style.filter = 'brightness(1.12) drop-shadow(0 14px 18px rgba(25, 20, 14, 0.45))';
+        sofaLabel.className = activeWallSwatch === 'slate'
+          ? 'lighting-transition text-[10px] font-mono uppercase tracking-[0.14em] text-alabaster/80 font-medium'
+          : 'lighting-transition text-[10px] font-mono uppercase tracking-[0.14em] text-obsidian/80 font-semibold';
+
+        scaleCaption.textContent = `Scale Preview (${dimShort}) • Daylight Mode`;
+        inspectCaption.textContent = 'Impasto & 24k Gold Leaf Inspection • Daylight';
+
+        // Toolbar Button State
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+        btnLabel.textContent = 'Gallery Lamp: ON (Day)';
+        btnToggle.classList.add('border-gold/55', 'bg-gold/15');
+        btnToggle.classList.remove('border-sky-400/40', 'bg-sky-950/40');
+      } else {
+        // ==================== LAMP OFF — NIGHT MODE (الوضع الليلي) ====================
+        stageContainer.style.background = swatch.nightBg;
+        windowRays.style.opacity = '0';
+        nightMoonOverlay.style.opacity = '1';
+        lightCone.style.opacity = '0';
+
+        // Brass lamp bulb dimmed & cooled down
+        bulb.style.background = 'radial-gradient(circle, #383B45 15%, #1E2026 70%, #121317 100%)';
+        bulb.style.boxShadow = 'none';
+        filament.style.opacity = '0.08';
+        innerReflector.setAttribute('fill', '#181A20');
+
+        // Artwork & Frame in moody nocturnal moonlight ambiance
+        wallFrame.style.boxShadow = '0 26px 48px rgba(0, 0, 0, 0.92), 0 0 22px rgba(148, 178, 224, 0.14)';
+        wallCanvas.style.filter = 'brightness(0.76) contrast(1.08) saturate(0.92)';
+        inspectFrame.style.boxShadow = '0 28px 55px rgba(0, 0, 0, 0.94), 0 0 24px rgba(148, 178, 224, 0.14)';
+        inspectCanvas.style.filter = 'brightness(0.78) contrast(1.08) saturate(0.92)';
+
+        // Sofa in nocturnal silhouette
+        sofaSvg.style.filter = 'brightness(0.55) drop-shadow(0 18px 25px rgba(0, 0, 0, 0.95))';
+        sofaLabel.className = 'lighting-transition text-[10px] font-mono uppercase tracking-[0.14em] text-alabaster/45 font-medium';
+
+        scaleCaption.textContent = `Scale Preview (${dimShort}) • Night Mode`;
+        inspectCaption.textContent = 'Nocturnal Ambient Study • Night Mode';
+
+        // Toolbar Button State
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+        btnLabel.textContent = 'Gallery Lamp: OFF (Night)';
+        btnToggle.classList.remove('border-gold/55', 'bg-gold/15');
+        btnToggle.classList.add('border-sky-400/40', 'bg-sky-950/40');
+      }
+    }
+
+    function openViewingRoom(artworkId) {
+      const art = artworks.find((a) => a.id === artworkId);
+      if (!art) return;
+      activeViewingArtwork = art;
+
+      document.getElementById('modal-lot-code').textContent = art.lot;
+      document.getElementById('modal-category').textContent = art.category;
+      document.getElementById('modal-title').textContent = art.title;
+      document.getElementById('modal-price').textContent = art.priceOnRequest
+        ? 'Price Upon Request'
+        : formatPrice(art.price);
+      document.getElementById('modal-dimensions').textContent = art.dimensions;
+      document.getElementById('modal-year-edition').textContent = `${art.year} • Unique 1/1`;
+      document.getElementById('modal-medium').textContent = art.medium;
+      document.getElementById('modal-provenance').textContent = art.provenance;
+      document.getElementById('cert-registry-id').textContent = `${art.lot}-VERIFIED`;
+      document.getElementById('modal-status-badge').outerHTML = getStatusBadgeHTML(art.status).replace('<span', '<span id="modal-status-badge"');
+
+      // Scale wall frame proportionally based on painting width in cm
+      const wallFrame = document.getElementById('wall-painting-frame');
+      const scaledPx = Math.min(Math.max(Math.round((art.widthCm || 150) * 1.12), 145), 220);
+      wallFrame.style.width = `${scaledPx}px`;
+
+      // Pre-fill acquisition inquiry message
+      document.getElementById('inq-message').value = `I would like to request the private acquisition dossier and shipping details for "${art.title}" (${art.lot}) by Carmen Petraru.`;
+
+      // Default to "Room & Wall Scale" with Daylight Lamp ON
+      isLampOn = true;
+      setViewingMode('wall');
+      applyViewingLighting();
+
+      const modal = document.getElementById('viewing-room-modal');
+      const panel = modal.querySelector('.modal-panel');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        panel.classList.remove('scale-95');
+        panel.classList.add('scale-100');
+        renderArtworkToCanvas(document.getElementById('modal-wall-canvas'), art, true);
+        renderArtworkToCanvas(document.getElementById('modal-inspect-canvas'), art, true);
+      });
+    }
+
+    function closeViewingRoom() {
+      const modal = document.getElementById('viewing-room-modal');
+      const panel = modal.querySelector('.modal-panel');
+      modal.classList.add('opacity-0');
+      panel.classList.remove('scale-100');
+      panel.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 300);
+    }
+
+    function setViewingMode(mode) {
+      viewingMode = mode;
+      const inspectStage = document.getElementById('stage-inspect');
+      const wallStage = document.getElementById('stage-wall');
+      const btnInspect = document.getElementById('btn-mode-inspect');
+      const btnWall = document.getElementById('btn-mode-wall');
+
+      if (mode === 'wall') {
+        inspectStage.classList.add('hidden');
+        wallStage.classList.remove('hidden');
+        btnWall.classList.add('bg-gold', 'text-obsidian');
+        btnWall.classList.remove('text-alabaster/75');
+        btnInspect.classList.remove('bg-gold', 'text-obsidian');
+        btnInspect.classList.add('text-alabaster/75');
+        if (activeViewingArtwork) {
+          renderArtworkToCanvas(document.getElementById('modal-wall-canvas'), activeViewingArtwork, true);
+        }
+      } else {
+        wallStage.classList.add('hidden');
+        inspectStage.classList.remove('hidden');
+        btnInspect.classList.add('bg-gold', 'text-obsidian');
+        btnInspect.classList.remove('text-alabaster/75');
+        btnWall.classList.remove('bg-gold', 'text-obsidian');
+        btnWall.classList.add('text-alabaster/75');
+        if (activeViewingArtwork) {
+          renderArtworkToCanvas(document.getElementById('modal-inspect-canvas'), activeViewingArtwork, true);
+        }
+      }
+    }
+
+    function toggleProvenanceCertificate() {
+      const drawer = document.getElementById('provenance-cert-drawer');
+      const chev = document.getElementById('cert-chevron');
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        chev.textContent = '−';
+      } else {
+        drawer.classList.add('hidden');
+        chev.textContent = '+';
+      }
+    }
+
+    function submitAcquisitionInquiry(event) {
+      event.preventDefault();
+      if (!activeViewingArtwork) return;
+
+      const name = document.getElementById('inq-name').value.trim();
+      const email = document.getElementById('inq-email').value.trim();
+      const location = document.getElementById('inq-location').value.trim();
+      const message = document.getElementById('inq-message').value.trim();
+
+      const newInquiry = {
+        id: 'inq-' + Date.now(),
+        name,
+        email,
+        location,
+        artworkTitle: activeViewingArtwork.title,
+        message,
+        timestamp: 'Just now',
+        status: 'New Lead'
+      };
+
+      inquiries.unshift(newInquiry);
+      updateInquiryBadges();
+      event.target.reset();
+      closeViewingRoom();
+
+      showToast(
+        'Private Inquiry Transmitted',
+        `Thank you, ${name}. Carmen Petraru's studio desk has received your inquiry for "${activeViewingArtwork.title}".`
+      );
+    }
+
+    /* ---------------------------------------------------------------------
+       7. CURATOR DASHBOARD: KPIs, CHART, INVENTORY & VIP INBOX
+    --------------------------------------------------------------------- */
+    function updateInquiryBadges() {
+      const activeCount = inquiries.length;
+      document.getElementById('nav-inquiry-badge').textContent = activeCount;
+      const kpiInq = document.getElementById('kpi-inquiries');
+      if (kpiInq) kpiInq.textContent = activeCount;
+      const inboxLabel = document.getElementById('inbox-count-label');
+      if (inboxLabel) inboxLabel.textContent = `${activeCount} Priority Leads`;
+    }
+
+    function renderDashboard() {
+      // 1. Dynamic Portfolio Valuation, Available Works & Reserved/Sold Revenue
+      const totalVal = artworks.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
+      const availableCount = artworks.filter((a) => a.status === 'Available').length;
+      const soldOrReservedRev = artworks
+        .filter((a) => a.status === 'Sold' || a.status === 'Reserved')
+        .reduce((sum, item) => sum + (Number(item.price) || 0), 0);
+
+      document.getElementById('kpi-valuation').textContent = formatPrice(totalVal);
+      document.getElementById('kpi-available').textContent = `${availableCount} Works`;
+      document.getElementById('kpi-revenue').textContent = formatPrice(soldOrReservedRev);
+      updateInquiryBadges();
+
+      // 2. Render Inventory Table
+      const tbody = document.getElementById('inventory-table-body');
+      tbody.innerHTML = artworks.map((art) => {
+        const displayPrice = art.priceOnRequest ? 'Price Upon Request' : formatPrice(art.price);
+        return `
+          <tr class="hover:bg-obsidian/40 transition-colors">
+            <td class="py-4 px-6">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-14 rounded p-1 bg-obsidian border border-gold/30 shrink-0">
+                  <canvas id="thumb-${art.id}" class="w-full h-full block rounded-sm"></canvas>
+                </div>
+                <div>
+                  <div class="font-serif text-lg text-alabaster">${art.title}</div>
+                  <div class="font-mono text-xs text-mutedSlate">${art.lot} &bull; ${art.year}</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-4 px-6 text-xs text-alabaster/75">${art.category}</td>
+            <td class="py-4 px-6 font-mono text-xs text-alabaster/70">${art.dimensions.split('(')[0].trim()}</td>
+            <td class="py-4 px-6 font-mono text-sm text-gold">${displayPrice}</td>
+            <td class="py-4 px-6">
+              <select
+                onchange="updateArtworkStatus('${art.id}', this.value)"
+                class="luxury-select px-3 py-1.5 rounded-lg bg-obsidian border border-gold/30 text-xs text-alabaster focus:border-gold focus:outline-none"
+              >
+                <option value="Available" ${art.status === 'Available' ? 'selected' : ''}>Available</option>
+                <option value="Reserved" ${art.status === 'Reserved' ? 'selected' : ''}>Reserved</option>
+                <option value="Sold" ${art.status === 'Sold' ? 'selected' : ''}>Sold</option>
+              </select>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      requestAnimationFrame(() => {
+        artworks.forEach((art) => {
+          const thumb = document.getElementById(`thumb-${art.id}`);
+          renderArtworkToCanvas(thumb, art, false);
+        });
+        renderAnalyticsChart();
+      });
+
+      // 3. Render VIP Collector Inquiries Feed
+      const inboxList = document.getElementById('vip-inquiries-list');
+      inboxList.innerHTML = inquiries.map((inq) => `
+        <div class="p-6 sm:px-8 flex flex-col lg:flex-row lg:items-center justify-between gap-5 hover:bg-obsidian/30 transition-colors">
+          <div class="space-y-1.5 max-w-2xl">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span class="font-serif text-xl text-alabaster">${inq.name}</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-gold/15 text-gold text-[11px] tracking-wide">${inq.location}</span>
+              <span class="font-mono text-xs text-mutedSlate">&bull; ${inq.timestamp}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider ${
+                inq.status === 'New Lead'
+                  ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                  : 'bg-sky-500/15 text-sky-300 border border-sky-500/30'
+              }">${inq.status}</span>
+            </div>
+            <div class="text-xs text-gold/90">
+              Inquiring Regarding: <span class="font-medium underline decoration-gold/40">${inq.artworkTitle}</span> &bull; <span class="font-mono text-mutedSlate">${inq.email}</span>
+            </div>
+            <p class="text-xs sm:text-sm text-alabaster/75 font-light leading-relaxed pt-1">
+              "${inq.message}"
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <button
+              onclick="updateInquiryStatus('${inq.id}', 'Call Scheduled')"
+              class="px-3.5 py-2 rounded-lg border border-gold/40 hover:bg-gold hover:text-obsidian text-xs text-gold transition-colors"
+            >
+              Schedule Private Call
+            </button>
+            <button
+              onclick="updateInquiryStatus('${inq.id}', 'Responded')"
+              class="px-3.5 py-2 rounded-lg bg-obsidian border border-alabaster/15 hover:border-alabaster/40 text-xs text-alabaster/80 transition-colors"
+            >
+              Mark Responded
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateArtworkStatus(artworkId, newStatus) {
+      const art = artworks.find((a) => a.id === artworkId);
+      if (!art) return;
+      art.status = newStatus;
+      renderDashboard();
+      showToast('Catalogue Synchronized', `"${art.title}" status updated to ${newStatus} across carmenpetraru-art.`);
+    }
+
+    function updateInquiryStatus(inquiryId, newStatus) {
+      const inq = inquiries.find((i) => i.id === inquiryId);
+      if (!inq) return;
+      inq.status = newStatus;
+      renderDashboard();
+      showToast('VIP Desk Updated', `Lead status for ${inq.name} marked as "${newStatus}".`);
+    }
+
+    /* ---------------------------------------------------------------------
+       8. PUBLISH NEW ARTWORK MODAL (PROCEDURAL OR CUSTOM IMAGE URL)
+    --------------------------------------------------------------------- */
+    function openPublishModal() {
+      const modal = document.getElementById('publish-modal');
+      const panel = modal.querySelector('.modal-panel');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        panel.classList.remove('scale-95');
+        panel.classList.add('scale-100');
+        updatePublishPreview();
+      });
+    }
+
+    function closePublishModal() {
+      const modal = document.getElementById('publish-modal');
+      const panel = modal.querySelector('.modal-panel');
+      modal.classList.add('opacity-0');
+      panel.classList.remove('scale-100');
+      panel.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 300);
+    }
+
+    function updatePublishPreview() {
+      const palette = document.getElementById('pub-palette').value;
+      const title = document.getElementById('pub-title').value || 'carmen-preview';
+      const previewCanvas = document.getElementById('publish-preview-canvas');
+      renderArtworkToCanvas(previewCanvas, { id: 'preview', seed: title + palette, palette }, true);
+    }
+
+    function handlePublishArtwork(event) {
+      event.preventDefault();
+      const title = document.getElementById('pub-title').value.trim();
+      const category = document.getElementById('pub-category').value;
+      const palette = document.getElementById('pub-palette').value;
+      const imageUrl = document.getElementById('pub-image-url').value.trim();
+      const medium = document.getElementById('pub-medium').value.trim();
+      const dimensions = document.getElementById('pub-dimensions').value.trim();
+      const price = Number(document.getElementById('pub-price').value) || 52000;
+
+      const nextNum = artworks.length + 1;
+      const newArt = {
+        id: 'art-' + Date.now(),
+        lot: `CP-2026-0${nextNum}`,
+        title,
+        year: 2026,
+        category,
+        medium,
+        dimensions,
+        widthCm: parseInt(dimensions, 10) || 150,
+        price,
+        priceOnRequest: false,
+        status: 'Available',
+        palette,
+        imageUrl: imageUrl || null,
+        seed: title.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+        provenance: 'Direct from Studio Carmen Petraru, Zurich'
+      };
+
+      artworks.unshift(newArt);
+      closePublishModal();
+      event.target.reset();
+      renderDashboard();
+
+      showToast(
+        'Masterpiece Published',
+        `"${newArt.title}" is now live in the carmenpetraru-art exhibition gallery.`
+      );
+    }
+
+    /* ---------------------------------------------------------------------
+       9. AMBIENT GOLD-DUST PARTICLES IN HERO SECTION
+    --------------------------------------------------------------------- */
+    function initHeroParticles() {
+      const canvas = document.getElementById('hero-particles-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w = (canvas.width = canvas.offsetWidth);
+      let h = (canvas.height = canvas.offsetHeight);
+
+      const particles = Array.from({ length: 38 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.7 + Math.random() * 1.8,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: -0.12 - Math.random() * 0.28,
+        alpha: 0.2 + Math.random() * 0.55
+      }));
+
+      window.addEventListener('resize', () => {
+        if (!canvas) return;
+        w = canvas.width = canvas.offsetWidth;
+        h = canvas.height = canvas.offsetHeight;
+      });
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.y < -10) {
+            p.y = h + 10;
+            p.x = Math.random() * w;
+          }
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 169, 110, ${p.alpha})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(animateParticles);
+      }
+      animateParticles();
+    }
+
+    /* ---------------------------------------------------------------------
+       10. CUSTOM SMOOTH AREA LINE CHART & MICRO-INTERACTIONS
+    --------------------------------------------------------------------- */
+    function renderAnalyticsChart() {
+      const canvas = document.getElementById('analytics-chart-canvas');
+      if (!canvas) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(rect.width || 600, 300);
+      const h = Math.max(rect.height || 240, 200);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+
+      const labels = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
+      const values = [720, 890, 1080, 1340, 1610, 1895];
+      const padLeft = 44;
+      const padRight = 24;
+      const padTop = 24;
+      const padBottom = 34;
+      const plotW = w - padLeft - padRight;
+      const plotH = h - padTop - padBottom;
+      const maxVal = 2000;
+
+      ctx.strokeStyle = 'rgba(200, 169, 110, 0.12)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = padTop + (plotH / 4) * i;
+        ctx.beginPath();
+        ctx.moveTo(padLeft, y);
+        ctx.lineTo(w - padRight, y);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(244, 239, 236, 0.45)';
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText(Math.round(maxVal - (maxVal / 4) * i), padLeft - 8, y + 3);
+      }
+
+      const pts = values.map((val, idx) => ({
+        x: padLeft + (plotW / (values.length - 1)) * idx,
+        y: padTop + plotH - (val / maxVal) * plotH
+      }));
+
+      const areaGrad = ctx.createLinearGradient(0, padTop, 0, h - padBottom);
+      areaGrad.addColorStop(0, 'rgba(200, 169, 110, 0.35)');
+      areaGrad.addColorStop(1, 'rgba(200, 169, 110, 0.0)');
+
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, h - padBottom);
+      ctx.lineTo(pts[0].x, pts[0].y);
+      for (let i = 0; i < pts.length - 1; i++) {
+        const xc = (pts[i].x + pts[i + 1].x) / 2;
+        const yc = (pts[i].y + pts[i + 1].y) / 2;
+        ctx.quadraticCurveTo(pts[i].x, pts[i].y, xc, yc);
+      }
+      ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+      ctx.lineTo(pts[pts.length - 1].x, h - padBottom);
+      ctx.closePath();
+      ctx.fillStyle = areaGrad;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for (let i = 0; i < pts.length - 1; i++) {
+        const xc = (pts[i].x + pts[i + 1].x) / 2;
+        const yc = (pts[i].y + pts[i + 1].y) / 2;
+        ctx.quadraticCurveTo(pts[i].x, pts[i].y, xc, yc);
+      }
+      ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+      ctx.strokeStyle = '#C8A96E';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      pts.forEach((pt, idx) => {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#090A0D';
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#E2C891';
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(244, 239, 236, 0.65)';
+        ctx.font = '11px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(labels[idx], pt.x, h - 10);
+      });
+    }
+
+    function showToast(title, message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto p-4 rounded-xl bg-surfaceElevated/95 border border-gold/45 shadow-museum backdrop-blur-xl transform translate-y-4 opacity-0 transition-all duration-300';
+      toast.innerHTML = `
+        <div class="flex items-start gap-3">
+          <div class="w-2 h-2 rounded-full bg-gold mt-1.5 shrink-0"></div>
+          <div>
+            <div class="font-serif text-base text-gold font-medium">${title}</div>
+            <div class="text-xs text-alabaster/80 mt-0.5 leading-relaxed">${message}</div>
+          </div>
+        </div>
+      `;
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 350);
+      }, 4200);
+    }
+
+    function attachSpotlightListeners() {
+      document.querySelectorAll('.spotlight-card').forEach((card) => {
+        card.onmousemove = (e) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        };
+      });
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      const halo = document.getElementById('cursor-halo');
+      if (halo) {
+        halo.style.left = `${e.clientX}px`;
+        halo.style.top = `${e.clientY}px`;
+      }
+    });
+
+    const heroTiltWrapper = document.getElementById('hero-tilt-wrapper');
+    if (heroTiltWrapper) {
+      heroTiltWrapper.addEventListener('mousemove', (e) => {
+        const rect = heroTiltWrapper.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        heroTiltWrapper.style.transform = `rotateY(${x * 9}deg) rotateX(${-y * 9}deg)`;
+      });
+      heroTiltWrapper.addEventListener('mouseleave', () => {
+        heroTiltWrapper.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      });
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    window.addEventListener('load', () => {
+      initHeroParticles();
+      renderHeroCanvas();
+      renderGallery();
+      attachSpotlightListeners();
+      document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
+    });
+
+    window.addEventListener('resize', () => {
+      if (currentView === 'dashboard') {
+        renderAnalyticsChart();
+      }
+    });
+  </script>
+</body>
+</html>
